@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Navbar from "./Navbar";
 
 function App() {
   return (
     <>
-      <Navbar />
+      <div>
+        <Navbar />
+      </div>
+      <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -21,15 +25,16 @@ function App() {
         <Route path="/edit/:id" element={<EditPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </Router>
     </>
   );
 }
 
 export default App;
 
-const [posts, setPosts] = useState([]); //create variables
+//const [posts, setPosts] = useState([]); //create variables
 
-useEffect(() => {
+/*useEffect(() => {
   //useEffect is a hook that runs after every render
   fetch("http://localhost:5000/posts", {
     //fetch data from the server
@@ -38,4 +43,4 @@ useEffect(() => {
       "Content-Type": "application/json",
 
       
-}, []);
+}, []);*/

@@ -3,7 +3,7 @@ import './Navbar.css'
 
 export default function Navbar() {
   return (
-    <nav className = "navigation">
+    <nav className = "navBar">
         <a href = "/" className='brand-name'>Photo4You</a>
         <input className = "search-bar" id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Search" value=""/>
         <div className='navigation-menu'>
@@ -19,3 +19,4 @@ export default function Navbar() {
     </nav>
   )
 }
+
