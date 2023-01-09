@@ -6,10 +6,8 @@ import Navbar from "./Navbar";
 function App() {
   return (
     <>
-      <div>
-        <Navbar />
-      </div>
-      <Router>
+      <Navbar />
+      <div className="container">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -25,7 +23,7 @@ function App() {
         <Route path="/edit/:id" element={<EditPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      </Router>
+      </div>
     </>
   );
 }
