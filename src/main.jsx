@@ -1,15 +1,50 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import App from "./App";
+import Home from "./Pages/Home";
+import RenderPage from "./Pages/RenderPage";
+//import About from Pages
+import About from "./Pages/About";
+import Contact from "./Pages/Contact";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import Profile from "./Pages/Profile";
+import Saves from "./Pages/Saves";
+import Posts from "./Pages/Post";
+import CreatePost from "./Pages/CreatePost";
+import EditPost from "./Pages/EditPost";
+import NotFound from "./Pages/NotFound";
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route path="/" element={<App />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/posts/:id" element={<Posts />} />
+        <Route path="/saves" element={<Saves />} />
+        <Route path="/saves/:id" element={<Saves />} />
+        <Route path="/post" element={<CreatePost />} />
+        <Route path="/edit/:id" element={<EditPost />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Route>
+  )
+);
 
-export default function main() {
-  ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
-  );
-}
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
