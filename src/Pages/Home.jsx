@@ -13,7 +13,9 @@ function Home() {
         headers: {
           "Content-Type": "application/json",
         },
+        response: "json",
       },
+      setPosts(response.data), //set the posts to the response data
       []
     );
   });
