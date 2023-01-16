@@ -1,5 +1,7 @@
+import { InputGroup, InputLeftElement } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { MdPersonOutline } from "react-icons/md";
 
 const Signup = () => {
   return (
@@ -9,19 +11,42 @@ const Signup = () => {
           <Box borderWidth="1px">
             <Headers>Login</Headers>
             <Box p="2">
-              <Input placeholder="Usernmae" size="lg" />
+              <InputGroup>
+                <InputLeftElement>
+                  <Icon as={MdPersonOutline} boxSize = {6}/>
+                </InputLeftElement>
+                <Input placeholder="Username" size="lg" />
+              </InputGroup>
             </Box>
             <Box p="2">
-              <Input placeholder="Email" size="lg" />
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<EmailIcon color="grey.300" />}
+                />
+                <Input placeholder="Email" size="lg" />
+              </InputGroup>
             </Box>
             <Box p="2">
-              <Input placeholder="Password" size="lg" />
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<LockIcon color="grey.300" />}
+                />
+                <Input placeholder="Password" size="lg" />
+              </InputGroup>
             </Box>
             <Box p="2">
-              <Input placeholder="Confirm Password" size="lg" />
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<LockIcon color="grey.300" />}
+                />
+                <Input placeholder="Confirm Password" size="lg" />
+              </InputGroup>
             </Box>
             <Box p="1">
-              Already have an account? <Link to = '/login'>Login</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </Box>
             <Button p="5">Sign Up</Button>
           </Box>
