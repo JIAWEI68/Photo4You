@@ -18,7 +18,7 @@ const Login = () => {
               Login
             </Button>
             <Box p = '1'>
-              Don't have an account?<Link to = '/register'>Register here!</Link>
+              Don't have an account?<Link to = '/signup'>Register here!</Link>
             </Box>
           </Box>
         </Center>
