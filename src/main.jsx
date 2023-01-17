@@ -21,6 +21,7 @@ import Posts from "./Pages/Post";
 import CreatePost from "./Pages/CreatePost";
 import EditPost from "./Pages/EditPost";
 import NotFound from "./Pages/NotFound";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,7 +45,8 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <ChakraProvider>
+    {" "}
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </ChakraProvider>
 );

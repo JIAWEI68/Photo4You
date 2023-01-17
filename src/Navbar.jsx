@@ -26,12 +26,19 @@ import {
   color,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { SearchIcon } from "@chakra-ui/icons";
 
 const Links = ["Login", "Signup"];
 
 const Navbar = () => {
   return (
-    <Box bg="#00C65A" w="2131px" mt="-10" ml="-8">
+    <Box
+      className="navBar"
+      bg="#373737"
+      borderWidth="1"
+      width="100%"
+      height="53px"
+    >
       <Flex minWidth="max-content" alignItems="center" gap="2" color="grey">
         <Box p="2">
           <Heading size="md" ml="24">
@@ -40,7 +47,7 @@ const Navbar = () => {
               style={{
                 textDecoration: "none",
                 fontFamily: "Raleway",
-                color: "black",
+                color: "white",
               }}
             >
               Photo4You
@@ -48,11 +55,11 @@ const Navbar = () => {
           </Heading>
         </Box>
         <Spacer />
-        <Box>
+        <Box p="1.5">
           <InputGroup>
             <InputRightElement
               pointerEvents="none"
-              children={<SearchIcon color="grey.300" />}
+              children={<SearchIcon color="grey.300" textAlign="center" />}
             />
             <Input
               placeholder="Search"
@@ -60,8 +67,9 @@ const Navbar = () => {
               style={{
                 textDecoration: "none",
                 textAlign: "center",
-                borderRadius: "1.625rem",
+                borderRadius: "0.5rem",
                 width: "344px",
+                background: "white",
                 height: "38px",
               }}
               size="lg"
@@ -77,7 +85,7 @@ const Navbar = () => {
               style={{
                 textDecoration: "none",
                 fontFamily: "Raleway",
-                color: "black",
+                color: "white",
               }}
             >
               Login
@@ -90,7 +98,7 @@ const Navbar = () => {
               style={{
                 textDecoration: "none",
                 fontFamily: "Raleway",
-                color: "black",
+                color: "white",
               }}
             >
               Signup

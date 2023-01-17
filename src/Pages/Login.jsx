@@ -1,6 +1,17 @@
-import { Button, Center, Input } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Input,
+  Box,
+  Link,
+  Heading,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import React from "react";
+import { Icon } from "@chakra-ui/react";
 import { MdPersonOutline } from "react-icons/md";
+import { LockIcon } from "@chakra-ui/icons";
 
 const Login = () => {
   return (
@@ -8,13 +19,13 @@ const Login = () => {
       <Box>
         <Center>
           <Box borderWidth="1px">
-            <Headers>Login</Headers>
+            <Heading>Login</Heading>
             <Box p="10">
               <InputGroup>
                 <InputLeftElement>
                   <Icon as={MdPersonOutline} boxSize={6} />
                 </InputLeftElement>
-                <Input placeholder="Usernmae" size="lg" />
+                <Input placeholder="Username" size="lg" />
               </InputGroup>
             </Box>
             <Box p="10">
@@ -28,7 +39,7 @@ const Login = () => {
             </Box>
             <Button p="10">Login</Button>
             <Box p="1">
-              Don't have an account?<Link to="/signup">Register here!</Link>
+              Don't have an account? <Link to="/signup">Register here!</Link>
             </Box>
           </Box>
         </Center>
