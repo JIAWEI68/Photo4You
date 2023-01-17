@@ -11,6 +11,7 @@ import {
   InputRightElement,
   IconButton,
   Icon,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdPersonOutline } from "react-icons/md";
@@ -49,6 +50,7 @@ function Login() {
                   />
                   <InputRightElement width="4.5rem">
                     <IconButton
+                      mt="5px"
                       h="1.75rem"
                       size="sm"
                       onClick={handleClick}

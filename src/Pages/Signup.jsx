@@ -9,6 +9,7 @@ import {
   Heading,
   InputRightElement,
   IconButton,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -21,7 +22,7 @@ function Signup() {
   const handleClick = () => setShow(!show);
   const handleCClick = () => setCShow(!confirmShow);
   return (
-    <Box p="39">
+    <Box p="40">
       <Box>
         <Center>
           <Box
@@ -63,6 +64,7 @@ function Signup() {
                 />
                 <InputRightElement width="4.5rem">
                   <IconButton
+                    mt="5px"
                     h="1.75rem"
                     size="sm"
                     onClick={handleClick}
@@ -85,6 +87,7 @@ function Signup() {
                 />
                 <InputRightElement width="4.5rem">
                   <IconButton
+                    mt="5px"
                     h="1.75rem"
                     size="sm"
                     onClick={handleCClick}
@@ -96,16 +99,18 @@ function Signup() {
             </Box>
             <Center>
               <Box p="1">
-                Already have an account?
-                <Link
-                  to="/login"
-                  style={{
-                    textDecoration: "underline",
-                    color: "blue",
-                  }}
-                >
-                  Login
-                </Link>
+                <Text>
+                  Already have an account?{" "}
+                  <Link
+                    to="/login"
+                    style={{
+                      textDecoration: "underline",
+                      color: "blue",
+                    }}
+                  >
+                    Login
+                  </Link>
+                </Text>
               </Box>
             </Center>
             <Center>

@@ -71,6 +71,8 @@ const Navbar = () => {
                 width: "344px",
                 background: "white",
                 height: "38px",
+                color: 'black',
+                fontFamily: "Raleway",
               }}
               size="lg"
             />
