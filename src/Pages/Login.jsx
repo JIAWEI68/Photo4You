@@ -7,45 +7,68 @@ import {
   Heading,
   InputGroup,
   InputLeftElement,
+  Container,
+  InputRightElement,
+  IconButton,
+  Icon,
 } from "@chakra-ui/react";
-import React from "react";
-import { Icon } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { MdPersonOutline } from "react-icons/md";
-import { LockIcon } from "@chakra-ui/icons";
+import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-const Login = () => {
+function Login() {
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
   return (
-    <Box>
+    <Container centerContent mt="40">
       <Box>
-        <Center>
-          <Box borderWidth="1px">
-            <Heading>Login</Heading>
-            <Box p="10">
-              <InputGroup>
-                <InputLeftElement>
-                  <Icon as={MdPersonOutline} boxSize={6} />
-                </InputLeftElement>
-                <Input placeholder="Username" size="lg" />
-              </InputGroup>
+        <Box>
+          <Center>
+            <Box borderWidth="2px" borderColor="black" h="330px">
+              <Center>
+                <Heading mt="10px">Login</Heading>
+              </Center>
+              <Box p="5" mt="10px">
+                <InputGroup>
+                  <InputLeftElement>
+                    <Icon as={MdPersonOutline} boxSize={6} />
+                  </InputLeftElement>
+                  <Input placeholder="Username" size="lg" />
+                </InputGroup>
+              </Box>
+              <Box p="5">
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<LockIcon color="grey.300" />}
+                  />
+                  <Input
+                    placeholder="Password"
+                    size="lg"
+                    type={show ? "text" : "password"}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <IconButton
+                      h="1.75rem"
+                      size="sm"
+                      onClick={handleClick}
+                      icon={show ? <ViewIcon /> : <ViewOffIcon />}
+                      variant="none"
+                    />
+                  </InputRightElement>
+                </InputGroup>
+              </Box>
+              <Center>
+                <Button p="5" h="10px">
+                  Login
+                </Button>
+              </Center>
             </Box>
-            <Box p="10">
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<LockIcon color="grey.300" />}
-                />
-                <Input placeholder="Password" size="lg" />
-              </InputGroup>
-            </Box>
-            <Button p="10">Login</Button>
-            <Box p="1">
-              Don't have an account? <Link to="/signup">Register here!</Link>
-            </Box>
-          </Box>
-        </Center>
+          </Center>
+        </Box>
       </Box>
-    </Box>
+    </Container>
   );
-};
+}
 
 export default Login;
