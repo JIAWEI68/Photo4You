@@ -3,7 +3,6 @@ import {
   Center,
   Input,
   Box,
-  Link,
   Heading,
   InputGroup,
   InputLeftElement,
@@ -16,10 +15,12 @@ import {
 import React, { useState } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const {isOPen, onOpen, onClose} = useDisclosure()
   return (
     <Container centerContent mt="40">
       <Box>
@@ -65,6 +66,22 @@ function Login() {
                   Login
                 </Button>
               </Center>
+              <Center>
+              <Box p="1">
+                <Text>
+                  New to the website? {" "} 
+                  <Link
+                    to="/signup"
+                    style={{
+                      textDecoration: "underline",
+                      color: "blue",
+                    }}
+                  >
+                    Sign Up
+                  </Link>
+                </Text>
+              </Box>
+            </Center>
             </Box>
           </Center>
         </Box>
