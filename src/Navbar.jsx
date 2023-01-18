@@ -24,6 +24,7 @@ import {
   InputGroup,
   InputRightElement,
   color,
+  Center,   
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -55,29 +56,31 @@ const Navbar = () => {
           </Heading>
         </Box>
         <Spacer />
-        <Box p="1.5">
-          <InputGroup>
-            <InputRightElement
-              pointerEvents="none"
-              children={<SearchIcon color="grey.300" textAlign="center" />}
-            />
-            <Input
-              placeholder="Search"
-              fontSize="20"
-              style={{
-                textDecoration: "none",
-                textAlign: "center",
-                borderRadius: "0.5rem",
-                width: "344px",
-                background: "white",
-                height: "38px",
-                color: 'black',
-                fontFamily: "Raleway",
-              }}
-              size="lg"
-            />
-          </InputGroup>
-        </Box>
+        <Center>
+          <Box p="1.5">
+            <InputGroup>
+              <InputRightElement
+                pointerEvents="none"
+                children={<SearchIcon color="grey.300" textAlign="center" />}
+              />
+              <Input
+                placeholder="Search"
+                fontSize="20"
+                style={{
+                  textDecoration: "none",
+                  textAlign: "center",
+                  borderRadius: "0.5rem",
+                  width: "344px",
+                  background: "white",
+                  height: "38px",
+                  color: "black",
+                  fontFamily: "Raleway",
+                }}
+                size="lg"
+              />
+            </InputGroup>
+          </Box>
+        </Center>
         <Spacer />
         <Breadcrumb mr="100">
           <BreadcrumbItem>
