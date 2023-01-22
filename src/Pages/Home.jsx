@@ -30,9 +30,9 @@ function Home() {
   const onClick = () => {
     setSelected("");
   };
-  const openModal = (posts) => {
+  function openModal(post){
     onOpen;
-    setCurrentPost(posts);
+    setCurrentPost(post);
   };
   const fetchData = async () => {
     return fetch("http://localhost:3000/posts").then((response) =>

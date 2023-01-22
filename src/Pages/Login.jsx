@@ -34,7 +34,7 @@ function Login() {
   };
 
   //post data into api gateway
-  const login = async () => {
+  async function login(){
     const response = await fetch("http://localhost:3000/login", {
       method: "POST",
       headers: {

@@ -19,8 +19,35 @@ import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 function Signup() {
   const [show, setShow] = useState(false);
   const [confirmShow, setCShow] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const handleClick = () => setShow(!show);
   const handleCClick = () => setCShow(!confirmShow);
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  async function signUp() {
+    const response = await fetch("http://localhost:3000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        email: email,
+      }),
+    });
+    const data = await response.json();
+  };
   return (
     <Box p="40">
       <Box>
@@ -39,7 +66,12 @@ function Signup() {
                 <InputLeftElement>
                   <Icon as={MdPersonOutline} boxSize={6} />
                 </InputLeftElement>
-                <Input placeholder="Username" size="lg" />
+                <Input
+                  placeholder="Username"
+                  size="lg"
+                  value={username}
+                  onChange={handleUsername}
+                />
               </InputGroup>
             </Box>
             <Box p="2" ml="15px" mr="15px">
@@ -48,7 +80,12 @@ function Signup() {
                   pointerEvents="none"
                   children={<EmailIcon color="grey.300" />}
                 />
-                <Input placeholder="Email" size="lg" />
+                <Input
+                  placeholder="Email"
+                  size="lg"
+                  value={email}
+                  onChange={handleEmail}
+                />
               </InputGroup>
             </Box>
             <Box p="2" ml="15px" mr="15px">
@@ -61,6 +98,8 @@ function Signup() {
                   placeholder="Password"
                   size="lg"
                   type={show ? "text" : "password"}
+                  value={password}
+                  onChange={handlePassword}
                 />
                 <InputRightElement width="4.5rem">
                   <IconButton
@@ -114,7 +153,7 @@ function Signup() {
               </Box>
             </Center>
             <Center>
-              <Button p="5">Sign Up</Button>
+              <Button p="5" onClick={signUp()}>Sign Up</Button>
             </Center>
           </Box>
         </Center>
