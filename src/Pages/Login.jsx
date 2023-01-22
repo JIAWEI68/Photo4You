@@ -11,6 +11,10 @@ import {
   IconButton,
   Icon,
   Text,
+  AlertDialog,
+  useDisclosure,
+  AlertDialogContent,
+  Alert
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdPersonOutline } from "react-icons/md";
@@ -24,6 +28,8 @@ function Login() {
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -47,12 +53,16 @@ function Login() {
     });
     const data = await response.json();
     setUsers(data);
-    sessionStorage.setItem("userId", users[0]);
+    const userId = sessionStorage.setItem("userId", users[0].id);
+    const users = sessionStorage.setItem("users", users[0]);
+    if(userId != null){
+      window.location.href = "/home";
+    }
+    else{
+      setShowAlert(true);
+    }
+    
   };
-
-  useEffect(() => {
-    login(); 
-  });
   return (
     <Container centerContent mt="40">
       <Box>
@@ -125,6 +135,16 @@ function Login() {
           </Center>
         </Box>
       </Box>
+      {showAlert ? (
+        <Alert>
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                Password/ Email is not correct
+              </AlertDialogHeader>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </Alert>) : null}
     </Container>
   );
 }

@@ -63,7 +63,7 @@ function Home() {
       </Center>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
         {postsList.map((post) => (
-          <Box maxW="sm" borderWidth="1px" borderRadius="lg">
+          <Box maxW="sm" borderWidth="1px" borderRadius="lg" key = {post.id}>
             <Image src={post.image} />
             <Box p="6">
               <Box display="flex" alignItems="stretch" overflow="hidden">

@@ -44,9 +44,10 @@ function Signup() {
         username: username,
         password: password,
         email: email,
+        profilePicture: "https://image.pngaaa.com/784/4877784-middle.png",
       }),
     });
-    const data = await response.json();
+
   };
   return (
     <Box p="40">
