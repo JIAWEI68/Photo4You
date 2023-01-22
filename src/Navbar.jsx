@@ -24,11 +24,10 @@ import {
   InputGroup,
   InputRightElement,
   color,
-  Center,   
+  Center,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
-import {users} from "./Pages/Login.jsx";
 
 const Links = ["Login", "Signup"];
 
@@ -167,13 +166,10 @@ const loginNavbar = () => {
           </Box>
         </Center>
         <Spacer />
-        <Box h = '30px'>
-          <Link to = "/profile"><Image src = {users.image}/></Link>
-        </Box>
+        <Box h="30px"></Box>
       </Flex>
     </Box>
   );
 };
-
 
 export default Navbar;

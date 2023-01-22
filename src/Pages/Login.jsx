@@ -33,7 +33,6 @@ function Login() {
     setPassword(e.target.value);
   };
 
-
   //post data into api gateway
   const login = async () => {
     const response = await fetch("http://localhost:3000/login", {
@@ -48,19 +47,12 @@ function Login() {
     });
     const data = await response.json();
     setUsers(data);
+    sessionStorage.setItem("userId", users[0]);
   };
 
   useEffect(() => {
-    login();
-    if(users != null){
-      console.log(users[0].username);
-      sessionStorage.setItem("userId", users[0].id);
-      window.location.href = "/home";
-    }
-    else{
-      console.log("no users");
-    }
-  })
+    login(); 
+  });
   return (
     <Container centerContent mt="40">
       <Box>
@@ -75,7 +67,12 @@ function Login() {
                   <InputLeftElement>
                     <Icon as={MdPersonOutline} boxSize={6} />
                   </InputLeftElement>
-                  <Input placeholder="Username" size="lg" value={username} onChange = {handleUsername}/>
+                  <Input
+                    placeholder="Username"
+                    size="lg"
+                    value={username}
+                    onChange={handleUsername}
+                  />
                 </InputGroup>
               </Box>
               <Box p="5">
@@ -86,8 +83,8 @@ function Login() {
                   />
                   <Input
                     placeholder="Password"
-                    value = {password}
-                    onChange = {handlePassword}
+                    value={password}
+                    onChange={handlePassword}
                     size="lg"
                     type={show ? "text" : "password"}
                   />
@@ -104,26 +101,26 @@ function Login() {
                 </InputGroup>
               </Box>
               <Center>
-                <Button p="5" h="10px">
+                <Button p="5" h="10px" onClick={login()}>
                   Login
                 </Button>
               </Center>
               <Center>
-              <Box p="1">
-                <Text>
-                  New to the website? {" "} 
-                  <Link
-                    to="/signup"
-                    style={{
-                      textDecoration: "underline",
-                      color: "blue",
-                    }}
-                  >
-                    Sign Up
-                  </Link>
-                </Text>
-              </Box>
-            </Center>
+                <Box p="1">
+                  <Text>
+                    New to the website?{" "}
+                    <Link
+                      to="/signup"
+                      style={{
+                        textDecoration: "underline",
+                        color: "blue",
+                      }}
+                    >
+                      Sign Up
+                    </Link>
+                  </Text>
+                </Box>
+              </Center>
             </Box>
           </Center>
         </Box>
