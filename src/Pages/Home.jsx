@@ -17,8 +17,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect, handleChange } from "react";
 import { Link } from "react-router-dom"; 
+import PostsModal from "../Components/PostsModal";
 function Home() {
-  const [posts, setPosts] = useState([]);
+  const [postsList, setPosts] = useState([]);
   let testPosts = [{
     id: 0
   }]
@@ -27,6 +28,7 @@ function Home() {
   useEffect(() => {
     //useEffect is a hook that runs after every render
     fetchData();
+    
   }, []);
   const onClick = () => {
     setSelected("");
@@ -36,6 +38,7 @@ function Home() {
       setPosts(response.json())
     );
   };
+
   return (
     <div className="container">
       <Center>
@@ -47,28 +50,20 @@ function Home() {
       </Center>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt = "10">
         <Box maxW="sm" borderWidth="1px" borderRadius="lg">
-          <Image src={posts.image} />
+          <Image src={postsList.image} />
           <Box p="6">
             <Box display="flex" alignItems="stretch" overflow="hidden">
               <Box mt="1" font="Raleway">
-                {posts.title}
+                {postsList.title}
               </Box>
             </Box>
           </Box>
           <Box p = "6">
-            <Button onClick={onOpen} props = {posts.id}>Details</Button>
+            <Button onClick={onOpen}>Details</Button>
           </Box>
         </Box>
       </SimpleGrid>
-      <Modal onClose={onClose} isOpen = {isOpen} isCentered>
-        <ModalOverlay>
-          <ModalContent>
-            <ModalBody>
-              <Box></Box>
-            </ModalBody>
-          </ModalContent>
-        </ModalOverlay>
-      </Modal>
+      <PostsModal props = {postsList.id} isOpen = {onOpen}/>
     </div>
   );
 }

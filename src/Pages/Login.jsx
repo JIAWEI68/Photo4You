@@ -16,11 +16,51 @@ import React, { useState } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function Login() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const {isOPen, onOpen, onClose} = useDisclosure()
+  const [users, setUsers] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+
+  //post data into api gateway
+  const login = async () => {
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    setUsers(data);
+  };
+
+  useEffect(() => {
+    login();
+    if(users != null){
+      console.log(users[0].username);
+      sessionStorage.setItem("userId", users[0].id);
+      window.location.href = "/home";
+    }
+    else{
+      console.log("no users");
+    }
+  })
   return (
     <Container centerContent mt="40">
       <Box>
@@ -35,7 +75,7 @@ function Login() {
                   <InputLeftElement>
                     <Icon as={MdPersonOutline} boxSize={6} />
                   </InputLeftElement>
-                  <Input placeholder="Username" size="lg" />
+                  <Input placeholder="Username" size="lg" value={username} onChange = {handleUsername}/>
                 </InputGroup>
               </Box>
               <Box p="5">
@@ -46,6 +86,8 @@ function Login() {
                   />
                   <Input
                     placeholder="Password"
+                    value = {password}
+                    onChange = {handlePassword}
                     size="lg"
                     type={show ? "text" : "password"}
                   />

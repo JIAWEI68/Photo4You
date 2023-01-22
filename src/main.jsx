@@ -22,6 +22,7 @@ import CreatePost from "./Pages/CreatePost";
 import EditPost from "./Pages/EditPost";
 import NotFound from "./Pages/NotFound";
 import { ChakraProvider } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
