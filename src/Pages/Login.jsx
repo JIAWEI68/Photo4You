@@ -14,7 +14,9 @@ import {
   AlertDialog,
   useDisclosure,
   AlertDialogContent,
-  Alert
+  Alert,
+  FormControl,
+  FormLabel
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdPersonOutline } from "react-icons/md";
@@ -24,6 +26,7 @@ import { useEffect } from "react";
 
 function Login() {
   const [show, setShow] = useState(false);
+  const [input, setInput] = useState("");
   const handleClick = () => setShow(!show);
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("");
@@ -33,11 +36,15 @@ function Login() {
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
+    setInput(e.target.value);
   };
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+    setInput(e.target.value);
   };
+
+  const isError = input === '';
 
   //post data into api gateway
   async function login(){
@@ -68,13 +75,14 @@ function Login() {
       <Box>
         <Box>
           <Center>
-            <Box borderWidth="2px" borderColor="black" h="330px">
+            <Box borderWidth="2px" borderColor="black" h="380px">
               <Center>
                 <Heading mt="10px">Login</Heading>
               </Center>
+              <FormControl isInvalid = {isError}>
               <Box p="5" mt="10px">
                 <InputGroup>
-                  <InputLeftElement>
+                  <InputLeftElement mt = "5px">
                     <Icon as={MdPersonOutline} boxSize={6} />
                   </InputLeftElement>
                   <Input
@@ -84,12 +92,17 @@ function Login() {
                     onChange={handleUsername}
                   />
                 </InputGroup>
+                {isError ? <FormLabel color="red">Username is required</FormLabel> : null}
               </Box>
+              </FormControl>
+              <FormControl isInvalid = {isError}>
               <Box p="5">
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
-                    children={<LockIcon color="grey.300" />}
+                    mt = "4px"
+                    children={<LockIcon color="grey.300" />
+                  }
                   />
                   <Input
                     placeholder="Password"
@@ -109,7 +122,9 @@ function Login() {
                     />
                   </InputRightElement>
                 </InputGroup>
+                {isError ? <FormLabel color="red">Password is required</FormLabel> : null}
               </Box>
+              </FormControl>
               <Center>
                 <Button p="5" h="10px" onClick={login()}>
                   Login
