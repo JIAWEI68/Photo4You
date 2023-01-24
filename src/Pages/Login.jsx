@@ -62,13 +62,13 @@ function Login() {
     setUsers(data);
     const userId = sessionStorage.setItem("userId", users[0].id);
     const users = sessionStorage.setItem("users", users[0]);
-    if(userId != null){
+    const checkId = sessionStorage.getItem("userId");
+    if(checkId != null){
       window.location.href = "/home";
     }
     else{
       setShowAlert(true);
     }
-    
   };
   return (
     <Container centerContent mt="40">
@@ -126,7 +126,7 @@ function Login() {
               </Box>
               </FormControl>
               <Center>
-                <Button p="5" h="10px" onClick={login()}>
+                <Button p="5" h="10px" onClick={login}>
                   Login
                 </Button>
               </Center>

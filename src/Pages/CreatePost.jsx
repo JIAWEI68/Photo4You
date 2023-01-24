@@ -17,7 +17,7 @@ const CreatePost = () => {
       body: JSON.stringify({
         title: title,
         description: description,
-        author: author,
+        username: author,
         image: image,
         type: type,
       }),
