@@ -4,6 +4,7 @@ import "./index.css";
 import Navbar from "./Navbar";
 import Home from "./Pages/Home";
 import LoginNavbar from "./Components/LoginNavbar";
+import Footer from "./Components/Footer";
 
 function App() {
   const userId = sessionStorage.getItem("userId");
@@ -22,6 +23,7 @@ function App() {
         <Navbar />
       )}
       <Outlet/>
+      <Footer/>
     </div>
   );
 }
