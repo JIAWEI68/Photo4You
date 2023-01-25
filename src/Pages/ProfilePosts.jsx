@@ -1,10 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
+import { useDisclosure } from '@chakra-ui/react'
 
 const ProfilePosts = () => {
   const [userId, setUserId] = useState("")
   const [postsList, setPosts] = useState([])
+  const {isOpen, onOpen, onClose} = useDisclosure();
   const id = sessionStorage.getItem("userId")
+  function openModal(post){
+    onOpen;
+    setCurrentPost(post);
+  };
   useEffect(() => {
     fetch(`http://localhost:3000/posts/${id}`)
       .then((response) => response.json())
