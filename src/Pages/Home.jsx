@@ -23,9 +23,16 @@ function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selected, setSelected] = useState(null);
   const [currentPost, setCurrentPost] = useState();
+  const fetchData = async() => {
+    return fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts").then((response) =>
+      setPosts(response.json())
+    );
+  };
+  let postsL = Array.from(postsList)
   useEffect(() => {
     //useEffect is a hook that runs after every render
     fetchData();
+    console.log(postsList)
   }, []);
   const onClick = () => {
     setSelected("");
@@ -33,11 +40,6 @@ function Home() {
   function openModal(post){
     onOpen;
     setCurrentPost(post);
-  };
-  const fetchData = async () => {
-    return fetch("http://localhost:3000/posts").then((response) =>
-      setPosts(response.json())
-    );
   };
 
   return (
@@ -62,7 +64,7 @@ function Home() {
         </Box>
       </Center>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
-        {postsList.map((post) => (
+        { postsList.length > 0 && postsList.map((post) => (
           <Box maxW="sm" borderWidth="1px" borderRadius="lg" key = {post.id}>
             <Image src={post.image} />
             <Box p="6">
