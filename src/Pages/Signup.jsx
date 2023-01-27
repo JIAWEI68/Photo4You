@@ -154,7 +154,7 @@ function Signup() {
               </Box>
             </Center>
             <Center>
-              <Button p="5" onClick={signUp()}>Sign Up</Button>
+              <Button p="5" onClick={signUp}>Sign Up</Button>
             </Center>
           </Box>
         </Center>

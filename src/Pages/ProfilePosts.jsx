@@ -1,47 +1,21 @@
-import {
-  Box,
-  Card,
-  SimpleGrid,
-  Image,
-  Select,
-  IconButton,
-  Button,
-  LinkOverlay,
-  LinkBox,
-  Center,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React, { useState, useEffect, handleChange } from "react";
-import { Link } from "react-router-dom";
-import PostsModal from "../Components/PostsModal";
-function Home() {
-  const [postsList, setPosts] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selected, setSelected] = useState(null);
-  const [currentPost, setCurrentPost] = useState();
-  const fetchData = async() => {
-    return fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts").then((response) =>
-      setPosts(response.json())
-    );
-  };
-  let postsL = Array.from(postsList)
-  useEffect(() => {
-    //useEffect is a hook that runs after every render
-    fetchData();
-    console.log(postsList)
-  }, []);
-  const onClick = () => {
-    setSelected("");
-  };
+import React from 'react'
+import { useState } from 'react'
+import { useDisclosure } from '@chakra-ui/react'
+
+const ProfilePosts = () => {
+  const [userId, setUserId] = useState("")
+  const [postsList, setPosts] = useState([])
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const id = sessionStorage.getItem("userId")
   function openModal(post){
     onOpen;
     setCurrentPost(post);
   };
-
+  useEffect(() => {
+    fetch(`http://localhost:3000/posts/${id}`)
+      .then((response) => response.json())
+      .then((data) => setPosts(data));
+  }, []);
   return (
     <div className="container">
       <Center>
@@ -64,7 +38,7 @@ function Home() {
         </Box>
       </Center>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
-        { postsList.length > 0 && postsList.map((post) => (
+        {postsList.map((post) => (
           <Box maxW="sm" borderWidth="1px" borderRadius="lg" key = {post.id}>
             <Image src={post.image} />
             <Box p="6">
@@ -85,7 +59,7 @@ function Home() {
         <PostsModal props={currentPost} />
       </Modal>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default ProfilePosts
