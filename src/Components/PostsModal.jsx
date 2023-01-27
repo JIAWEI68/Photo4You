@@ -14,16 +14,16 @@ import {
 const PostsModal = ({ post }, data) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useEffect(() => {
-    console.log(data.props);
+    console.log(post);
   }, [post]);
   return (
     <ModalOverlay>
-    <ModalContent>
-      <ModalBody>
-        <Box></Box>
-      </ModalBody>
-    </ModalContent>
-  </ModalOverlay>
+      <ModalContent>
+        <ModalBody>
+          <Box></Box>
+        </ModalBody>
+      </ModalContent>
+    </ModalOverlay>
   );
 };
 

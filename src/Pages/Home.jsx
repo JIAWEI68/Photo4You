@@ -45,7 +45,7 @@ function Home() {
     setSelected("");
   };
   function openModal(post) {
-    onOpen;
+    onOpen();
     setCurrentPost(post);
   }
 
@@ -83,7 +83,9 @@ function Home() {
                 </Box>
               </Box>
               <Box p="6">
-                <Button onClick={(post) => openModal(post)}>Details</Button>
+                <Button onClick={(post) => openModal(postsList)}>
+                  Details
+                </Button>
               </Box>
             </Box>
           ))}
