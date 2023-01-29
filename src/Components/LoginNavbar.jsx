@@ -7,20 +7,21 @@ import {
     InputGroup,
     InputRightElement,
     Spacer,
+    Image
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
-const loginNavbar = () => {
+function loginNavbar (){
    
     const [profilePicture , setProfilePicture] = useState(""); 
     const user = sessionStorage.getItem("user");
 
     useEffect(() => {
         if(user == null){
-            setProfilePicture("")
+            setProfilePicture("https://p.kindpng.com/picc/s/623-6236350_profile-icon-png-white-clipart-png-download-windows.png")
         }
         else if(user != null){
             setProfilePicture(JSON.parse(user).profilePicture)
@@ -78,8 +79,8 @@ const loginNavbar = () => {
             </Box>
           </Center>
           <Spacer />
-          <Box h="30px">
-            <Image src = {profilePicture}/>
+          <Box h="30px" mt = "0" mr = "10" mb = "0">
+            <Image src = {profilePicture} h = "40px"/>
           </Box>
         </Flex>
       </Box>

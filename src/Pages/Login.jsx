@@ -12,27 +12,33 @@ import {
   Icon,
   Text,
   AlertDialog,
+  AlertDialogOverlay,
   useDisclosure,
   AlertDialogContent,
+  AlertDialogHeader,
   Alert,
   FormControl,
   FormLabel
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+
 
 function Login() {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
+  const [inputP, setInputP] = useState("");
   const handleClick = () => setShow(!show);
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [showAlert, setShowAlert] = useState(false);
+  const userId = 0;
+
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -41,18 +47,24 @@ function Login() {
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
-    setInput(e.target.value);
+    setInputP(e.target.value);
   };
 
   const isError = input === '';
+  const isErrorP = inputP === '';
+
+  Amplify.configure({
+    Auth: {
+      region: "us-east-1",
+      identityPoolId: "arn:aws:cognito-idp:us-east-1:895732314387:userpool/us-east-1_1f50X6YaQ",
+      userPoolId: "us-east-1_1f50X6YaQ",
+    }
+  });
 
   //post data into api gateway
   async function login(){
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         username: username,
         password: password,
@@ -60,18 +72,20 @@ function Login() {
     });
     const data = await response.json();
     setUsers(data);
+    console.log(users);
     const userId = sessionStorage.setItem("userId", users[0].id);
-    const users = sessionStorage.setItem("users", users[0]);
+    // const users = sessionStorage.setItem("users", users[0]);
     const checkId = sessionStorage.getItem("userId");
     if(checkId != null){
-      window.location.href = "/home";
+      const navigate = useNavigate();
+      navigate("/home");
     }
     else{
       setShowAlert(true);
     }
   };
   return (
-    <Container centerContent mt="40">
+    <Container centerContent mt="40" mb= "40">
       <Box>
         <Box>
           <Center>
@@ -95,7 +109,7 @@ function Login() {
                 {isError ? <FormLabel color="red">Username is required</FormLabel> : null}
               </Box>
               </FormControl>
-              <FormControl isInvalid = {isError}>
+              <FormControl isInvalid = {isErrorP}>
               <Box p="5">
                 <InputGroup>
                   <InputLeftElement
@@ -122,11 +136,11 @@ function Login() {
                     />
                   </InputRightElement>
                 </InputGroup>
-                {isError ? <FormLabel color="red">Password is required</FormLabel> : null}
+                {isErrorP ? <FormLabel color="red">Password is required</FormLabel> : null}
               </Box>
               </FormControl>
               <Center>
-                <Button p="5" h="10px" onClick={login}>
+                <Button p="5" h="10px" onClick={() => login()}>
                   Login
                 </Button>
               </Center>
@@ -150,7 +164,7 @@ function Login() {
           </Center>
         </Box>
       </Box>
-      {showAlert ? (
+      {/* {showAlert ? (
         <Alert>
           <AlertDialogOverlay>
             <AlertDialogContent>
@@ -159,7 +173,7 @@ function Login() {
               </AlertDialogHeader>
             </AlertDialogContent>
           </AlertDialogOverlay>
-        </Alert>) : null}
+        </Alert>) : null} */}
     </Container>
   );
 }

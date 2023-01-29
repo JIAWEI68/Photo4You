@@ -83,7 +83,7 @@ function Home() {
                 </Box>
               </Box>
               <Box p="6">
-                <Button onClick={(post) => openModal(currentPost)}>
+                <Button onClick={() => openModal(post)}>
                   Details
                 </Button>
               </Box>

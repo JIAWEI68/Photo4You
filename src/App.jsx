@@ -10,7 +10,7 @@ function App() {
   const userId = sessionStorage.getItem("userId");
   const [nullChecker, setUserId] = useState(false);
   useEffect(() => {
-    if (userId != null) {
+    if (userId != "" && userId != null) {
       setUserId(true);
     }
   }, []);

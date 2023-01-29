@@ -25,6 +25,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { useEffect } from "react";
 import ProfilePosts from "./Pages/ProfilePosts";
 
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
