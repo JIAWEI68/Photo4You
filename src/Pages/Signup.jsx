@@ -35,6 +35,7 @@ function Signup() {
   };
 
   async function signUp() {
+   try{
     const response = await fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: {
@@ -47,7 +48,10 @@ function Signup() {
         profilePicture: "https://image.pngaaa.com/784/4877784-middle.png",
       }),
     });
-
+   }
+    catch(err){
+      console.log(err)
+    } 
   };
   return (
     <Box p="40">
