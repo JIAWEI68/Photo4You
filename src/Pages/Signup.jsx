@@ -20,12 +20,16 @@ import {
   ModalBody,
   ModalCloseButton,
   FormControl,
+  useToast,
+  VStack,
+  HStack
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdPersonOutline } from "react-icons/md";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import UserPool from "../UserPool";
+
 
 function Signup() {
   const [show, setShow] = useState(false);
@@ -60,7 +64,7 @@ function Signup() {
   const signUp = (e) => {
     e.preventDefault();
     if (password != confirmPassword) {
-      Toast({
+      useToast({
         title: "Passwords do not match",
         description: "Please try again",
         status: "error",
@@ -249,6 +253,13 @@ function Signup() {
                   </InputRightElement>
                 </InputGroup>
               </Box>
+              <Center>
+                <VStack>
+                  <Box>
+                    <HStack></HStack>
+                  </Box>
+                </VStack>
+              </Center>
               <Center>
                 <Box p="1">
                   <Text>
