@@ -18,14 +18,12 @@ import {
   AlertDialogHeader,
   Alert,
   FormControl,
-  FormLabel
+  FormLabel,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
-
-
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -39,7 +37,6 @@ function Login() {
   const [showAlert, setShowAlert] = useState(false);
   const userId = 0;
 
-
   const handleUsername = (e) => {
     setUsername(e.target.value);
     setInput(e.target.value);
@@ -50,42 +47,36 @@ function Login() {
     setInputP(e.target.value);
   };
 
-  const isError = input === '';
-  const isErrorP = inputP === '';
-
-  Amplify.configure({
-    Auth: {
-      region: "us-east-1",
-      identityPoolId: "arn:aws:cognito-idp:us-east-1:895732314387:userpool/us-east-1_1f50X6YaQ",
-      userPoolId: "us-east-1_1f50X6YaQ",
-    }
-  });
+  const isError = input === "";
+  const isErrorP = inputP === "";
 
   //post data into api gateway
-  async function login(){
-    const response = await fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login", {
-      method: "POST",
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    });
+  async function login() {
+    const response = await fetch(
+      "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      }
+    );
     const data = await response.json();
     setUsers(data);
     console.log(users);
     const userId = sessionStorage.setItem("userId", users[0].id);
     // const users = sessionStorage.setItem("users", users[0]);
     const checkId = sessionStorage.getItem("userId");
-    if(checkId != null){
+    if (checkId != null) {
       const navigate = useNavigate();
       navigate("/home");
-    }
-    else{
+    } else {
       setShowAlert(true);
     }
-  };
+  }
   return (
-    <Container centerContent mt="40" mb= "40">
+    <Container centerContent mt="40" mb="40">
       <Box>
         <Box>
           <Center>
@@ -93,51 +84,54 @@ function Login() {
               <Center>
                 <Heading mt="10px">Login</Heading>
               </Center>
-              <FormControl isInvalid = {isError}>
-              <Box p="5" mt="10px">
-                <InputGroup>
-                  <InputLeftElement mt = "5px">
-                    <Icon as={MdPersonOutline} boxSize={6} />
-                  </InputLeftElement>
-                  <Input
-                    placeholder="Username"
-                    size="lg"
-                    value={username}
-                    onChange={handleUsername}
-                  />
-                </InputGroup>
-                {isError ? <FormLabel color="red">Username is required</FormLabel> : null}
-              </Box>
-              </FormControl>
-              <FormControl isInvalid = {isErrorP}>
-              <Box p="5">
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    mt = "4px"
-                    children={<LockIcon color="grey.300" />
-                  }
-                  />
-                  <Input
-                    placeholder="Password"
-                    value={password}
-                    onChange={handlePassword}
-                    size="lg"
-                    type={show ? "text" : "password"}
-                  />
-                  <InputRightElement width="4.5rem">
-                    <IconButton
-                      mt="5px"
-                      h="1.75rem"
-                      size="sm"
-                      onClick={handleClick}
-                      icon={show ? <ViewIcon /> : <ViewOffIcon />}
-                      variant="none"
+              <FormControl isInvalid={isError}>
+                <Box p="5" mt="10px">
+                  <InputGroup>
+                    <InputLeftElement mt="5px">
+                      <Icon as={MdPersonOutline} boxSize={6} />
+                    </InputLeftElement>
+                    <Input
+                      placeholder="Username"
+                      size="lg"
+                      value={username}
+                      onChange={handleUsername}
                     />
-                  </InputRightElement>
-                </InputGroup>
-                {isErrorP ? <FormLabel color="red">Password is required</FormLabel> : null}
-              </Box>
+                  </InputGroup>
+                  {isError ? (
+                    <FormLabel color="red">Username is required</FormLabel>
+                  ) : null}
+                </Box>
+              </FormControl>
+              <FormControl isInvalid={isErrorP}>
+                <Box p="5">
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      mt="4px"
+                      children={<LockIcon color="grey.300" />}
+                    />
+                    <Input
+                      placeholder="Password"
+                      value={password}
+                      onChange={handlePassword}
+                      size="lg"
+                      type={show ? "text" : "password"}
+                    />
+                    <InputRightElement width="4.5rem">
+                      <IconButton
+                        mt="5px"
+                        h="1.75rem"
+                        size="sm"
+                        onClick={handleClick}
+                        icon={show ? <ViewIcon /> : <ViewOffIcon />}
+                        variant="none"
+                      />
+                    </InputRightElement>
+                  </InputGroup>
+                  {isErrorP ? (
+                    <FormLabel color="red">Password is required</FormLabel>
+                  ) : null}
+                </Box>
               </FormControl>
               <Center>
                 <Button p="5" h="10px" onClick={() => login()}>

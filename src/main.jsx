@@ -41,7 +41,7 @@ const router = createBrowserRouter(
         <Route path="/saves/:id" element={<Saves />} />
         <Route path="/post" element={<CreatePost />} />
         <Route path="/edit/:id" element={<EditPost />} />
-        <Route path = "/profileposts" element = {<ProfilePosts/>} />
+        <Route path="/profileposts" element={<ProfilePosts />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Route>

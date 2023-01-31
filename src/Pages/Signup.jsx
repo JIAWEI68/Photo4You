@@ -10,18 +10,26 @@ import {
   InputRightElement,
   IconButton,
   Text,
+  Toast,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdPersonOutline } from "react-icons/md";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import UserPool from "../UserPool";
+
+
 
 function Signup() {
   const [show, setShow] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [confirmShow, setCShow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
   const handleClick = () => setShow(!show);
   const handleCClick = () => setCShow(!confirmShow);
   const handleUsername = (e) => {
@@ -34,24 +42,85 @@ function Signup() {
     setEmail(e.target.value);
   };
 
-  async function signUp() {
-   try{
-    const response = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-        email: email,
-        profilePicture: "https://image.pngaaa.com/784/4877784-middle.png",
-      }),
-    });
-   }
-    catch(err){
-      console.log(err)
-    } 
+  const signUp = (e) => {
+    e.preventDefault();
+    if (password != confirmPassword) {
+      Toast({
+        title: "Passwords do not match",
+        description: "Please try again",
+        status: "error",
+        duration: 9000,
+      });
+      setPassword("");
+      setConfirmPassword("");
+    } else {
+      UserPool.signUp(username, password, [], null, (err, data) => {
+        if (data) {
+          try {
+            const response = fetch("http://localhost:3000/signup", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username: username,
+                password: password,
+                email: email,
+                profilePicture:
+                  "https://image.pngaaa.com/784/4877784-middle.png",
+              }),
+            });
+            onOpen();
+          } catch (err) {
+            console.log(err);
+          }
+        } else if (err) {
+          console.log(err);
+          switch (err.code) {
+            case "UsernameExistsException":
+              Toast({
+                title: "Username already exists",
+                description: "Please try again",
+                status: "error",
+                duration: 9000,
+              });
+              break;
+            case "InvalidParameterException":
+              Toast({
+                title: "Invalid email",
+                description: "Please try again",
+                status: "error",
+                duration: 9000,
+              });
+              break;
+            case "InvalidPasswordException":
+              Toast({
+                title: "Invalid password",
+                description: "Please try again",
+                status: "error",
+                duration: 9000,
+              });
+              break;
+            default:
+              Toast({
+                title: "Error",
+                description: "Please try again",
+                status: "error",
+                duration: 9000,
+              });
+          }
+        }
+      });
+    }
+  };
+
+  const onConfirm = (e) => {
+    e.preventDefault();
+    const userData = {
+      Username: username,
+      Pool: UserPool,
+    };
+    const user = new CognitoUser(userData);
   };
   return (
     <Box p="40">
@@ -158,7 +227,9 @@ function Signup() {
               </Box>
             </Center>
             <Center>
-              <Button p="5" onClick={signUp}>Sign Up</Button>
+              <Button p="5" onClick={signUp}>
+                Sign Up
+              </Button>
             </Center>
           </Box>
         </Center>
