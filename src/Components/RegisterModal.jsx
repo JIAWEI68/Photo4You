@@ -9,7 +9,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 
-const RegisterModal = () => {
+const RegisterModal = (code) => {
   return (
     <ModalOverlay>
       <form onSubmit={onConfirmSubmit}>
@@ -36,7 +36,7 @@ const RegisterModal = () => {
               Close
             </Button>
             <Button
-              isLoading={loadingState}
+              
               type="submit"
               variant="solid"
               colorScheme="blue"
