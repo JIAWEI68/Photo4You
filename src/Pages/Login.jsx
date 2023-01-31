@@ -47,12 +47,18 @@ function Login() {
     setInputP(e.target.value);
   };
 
-  const isError = input === "";
-  const isErrorP = inputP === "";
+  let isError = false;
+  let isErrorP = false;
 
   //post data into api gateway
-  async function login() {
-    const response = await fetch(
+  const login = (e) => {
+    e.preventDefault();
+    if (username == "") {
+      isError = true;
+    } else if (password == "") {
+      isErrorP = true;
+    }
+    const response = fetch(
       "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login",
       {
         method: "POST",
@@ -62,7 +68,7 @@ function Login() {
         }),
       }
     );
-    const data = await response.json();
+    const data = response.json();
     setUsers(data);
     console.log(users);
     const userId = sessionStorage.setItem("userId", users[0].id);
@@ -74,7 +80,7 @@ function Login() {
     } else {
       setShowAlert(true);
     }
-  }
+  };
   return (
     <Container centerContent mt="40" mb="40">
       <Box>
