@@ -22,14 +22,13 @@ import {
   FormControl,
   useToast,
   VStack,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdPersonOutline } from "react-icons/md";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import UserPool from "../UserPool";
-
 
 function Signup() {
   const [show, setShow] = useState(false);
@@ -40,6 +39,8 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
+  const toast = useToast();
+  const toastId = "id";
 
   const handleClick = () => setShow(!show);
   const handleCClick = () => setCShow(!confirmShow);
@@ -64,12 +65,27 @@ function Signup() {
   const signUp = (e) => {
     e.preventDefault();
     if (password != confirmPassword) {
-      useToast({
-        title: "Passwords do not match",
-        description: "Please try again",
-        status: "error",
-        duration: 9000,
-      });
+      if (!toast.isActive(toastId)) {
+        toast({
+          toastId,
+          title: "Passwords do not match",
+          description: "Please try again",
+          status: "error",
+          duration: 5000,
+        });
+      } else if (
+        username == "" ||
+        password == "" ||
+        email == "" ||
+        confirmPassword == ""
+      ) {
+        toast({
+          title: "Please enter your details",
+          description: "Please try again",
+          status: "error",
+          duration: 5000,
+        });
+      }
       setPassword("");
       setConfirmPassword("");
     } else {
@@ -97,36 +113,48 @@ function Signup() {
           console.log(err);
           switch (err.code) {
             case "UsernameExistsException":
-              Toast({
-                title: "Username already exists",
-                description: "Please try again",
-                status: "error",
-                duration: 9000,
-              });
+              if (!toast.isActive(toastId)) {
+                toast({
+                  toastId,
+                  title: "Username already exists",
+                  description: "Please try again",
+                  status: "error",
+                  duration: 5000,
+                });
+              }
               break;
             case "InvalidParameterException":
-              Toast({
-                title: "Invalid email",
-                description: "Please try again",
-                status: "error",
-                duration: 9000,
-              });
+              if (!toast.isActive(toastId)) {
+                toast({
+                  toastId,
+                  title: "Missing details",
+                  description: "Please try again",
+                  status: "error",
+                  duration: 5000,
+                });
+              }
               break;
             case "InvalidPasswordException":
-              Toast({
-                title: "Invalid password",
-                description: "Please try again",
-                status: "error",
-                duration: 9000,
-              });
+              if (!toast.isActive(toastId)) {
+                toast({
+                  toastId,
+                  title: "Invalid password",
+                  description: "Please try again",
+                  status: "error",
+                  duration: 5000,
+                });
+              }
               break;
             default:
-              Toast({
-                title: "Error",
-                description: "Please try again",
-                status: "error",
-                duration: 9000,
-              });
+              if (!toast.isActive(toastId)) {
+                toast({
+                  toastId,
+                  title: "Error",
+                  description: "Please try again",
+                  status: "error",
+                  duration: 5000,
+                });
+              }
           }
         }
       });
@@ -144,20 +172,26 @@ function Signup() {
       user.confirmRegistration(code, true, (err, data) => {
         if (data) {
           onClose();
-          Toast({
-            title: "Account created",
-            description: "Please log in",
-            status: "success",
-            duration: 9000,
-          });
+          if (!toast.isActive(toastId)) {
+            toast({
+              toastId,
+              title: "Account created",
+              description: "Please log in",
+              status: "success",
+              duration: 5000,
+            });
+          }
         } else if (err) {
           console.log(err);
-          Toast({
-            title: "Error",
-            description: "Please try again",
-            status: "error",
-            duration: 9000,
-          });
+          if (!toast.isActive(toastId)) {
+            toast({
+              toastId,
+              title: "Error",
+              description: "Please try again",
+              status: "error",
+              duration: 5000,
+            });
+          }
         }
       });
     }
