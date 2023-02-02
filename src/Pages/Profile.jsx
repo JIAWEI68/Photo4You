@@ -1,7 +1,7 @@
 import { Box, FormControl, FormLabel, Image, Icon, Input, Center, HStack, Text, Button } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useState, state } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 const Profile = () => {
@@ -23,8 +23,9 @@ const Profile = () => {
   const handleProfilePicture = (e) => {
     setProfilePicture(e.target.value);
   };
-  const updateProfile = () => {
-    fetch(`http://localhost:3000/users/${id}`, {
+  const updateProfile = async (e) => {
+    e.preventDefault();
+    await fetch(`http://localhost:3000/users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,10 +38,28 @@ const Profile = () => {
       }),
     });
   };
+  const getProfile = async () => {
+    const response = await fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/user/${id}`,{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "authorize" : "auth",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    setProfile(data);
+    for (const user of data){
+      setUsername(user.username);
+      setEmail(user.email);
+      setPassword(user.password);
+      setProfilePicture(user.profilePicture);
+    }
+ 
+  };
   useEffect(() => {
-    fetch(`http://localhost:3000/users/${id}`)
-      .then((response) => response.json())
-      .then((data) => setProfile(data));
+    getProfile();
   }, []);
   return (
     <div>
@@ -66,7 +85,7 @@ const Profile = () => {
           <Input
             type="text"
             placeholder="Profile Picture"
-            value={profile.profilePicture}
+            value={profilePicture}
             onChange={handleProfilePicture}
           />
         </FormControl>
@@ -79,7 +98,7 @@ const Profile = () => {
           <Input
             type="text"
             placeholder="Username"
-            value={profile.username}
+            value={username}
             onChange={handleUsername}
           />
         </FormControl>
@@ -92,7 +111,7 @@ const Profile = () => {
           <Input
             type="text"
             placeholder="Email"
-            value={profile.password}
+            value={email}
             onChange={handleEmail}
           />
         </FormControl>
@@ -103,16 +122,16 @@ const Profile = () => {
             Password
           </FormLabel>
           <Input
-            type="text"
+            type="password"
             placeholder="password"
-            value={profile.username}
+            value={password}
             onChange={handlePassword}
           />
         </FormControl>
       </Box>
-      <Center>
+      <Center>  
         <Box mt = '10px'>
-          <Button onClick={updateProfile()}>Update</Button>
+          <Button onClick={updateProfile}>Update</Button>
         </Box>
       </Center>
       </Box>
