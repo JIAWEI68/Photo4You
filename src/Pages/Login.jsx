@@ -19,11 +19,15 @@ import {
   Alert,
   FormControl,
   FormLabel,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import UserPool from "../UserPool";
+import { useContext } from "react";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -36,6 +40,7 @@ function Login() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [showAlert, setShowAlert] = useState(false);
   const userId = 0;
+  const toast = useToast();
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -49,37 +54,72 @@ function Login() {
 
   let isError = false;
   let isErrorP = false;
+  //const authenticate = useContext(AccountContext);
 
   //post data into api gateway
   const login = (e) => {
     e.preventDefault();
-    if (username == "") {
-      isError = true;
-    } else if (password == "") {
-      isErrorP = true;
-    }
-    const response = fetch(
-      "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
+    const user = new CognitoUser({
+      Username: username,
+      Pool: UserPool,
+    })
+    const authDetials = new AuthenticationDetails({ 
+      Username: username,
+      Password: password,
+    });
+    user.authenticateUser(authDetials, {
+      onSuccess: (data) => {
+        toast({
+          title: "Login Success",
+          description: "You have successfully logged in",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        })
+        console.log('onSuccess: ', data)
+        const response = fetch(
+          "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              username: username,
+              password: password,
+            }),
+          }
+        );
+        const userData = response.json();
+        setUsers(userData);
+        sessionStorage.setItem("userId", userData.id);
+        console.log(userData);
+        window.location.href = "/home";
+      },
+      onFailure: (err) => {
+        toast({
+          title: "Login Failed",
+          description: "Please check your username and password",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        })
+        console.error('onFailure: ', err)
+      },
+      newPasswordRequired: (userAttributes, requiredAttributes) => {
+        delete userAttributes.email_verified;
+        user.completeNewPasswordChallenge(password, userAttributes, this);
       }
-    );
-    const data = response.json();
-    setUsers(data);
+    })
+
+    
     console.log(users);
-    const userId = sessionStorage.setItem("userId", users[0].id);
+    
     // const users = sessionStorage.setItem("users", users[0]);
-    const checkId = sessionStorage.getItem("userId");
-    if (checkId != null) {
-      const navigate = useNavigate();
-      navigate("/home");
-    } else {
-      setShowAlert(true);
-    }
+    // const checkId = sessionStorage.getItem("userId");
+    // if (checkId != null) {
+    //   const navigate = useNavigate();
+    //   navigate("/home");
+    // } else {
+    //   setShowAlert(true);
+    // }
   };
   return (
     <Container centerContent mt="40" mb="40">
@@ -140,7 +180,7 @@ function Login() {
                 </Box>
               </FormControl>
               <Center>
-                <Button p="5" h="10px" onClick={() => login()}>
+                <Button p="5" h="10px" onClick={login}>
                   Login
                 </Button>
               </Center>
