@@ -28,6 +28,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
 import { useContext } from "react";
+import axios, { Axios } from "axios";
 
 function Login() {
   const [show, setShow] = useState(false);
@@ -62,36 +63,45 @@ function Login() {
     const user = new CognitoUser({
       Username: username,
       Pool: UserPool,
-    })
-    const authDetials = new AuthenticationDetails({ 
+    });
+    const authDetials = new AuthenticationDetails({
       Username: username,
       Password: password,
     });
     user.authenticateUser(authDetials, {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
         toast({
           title: "Login Success",
           description: "You have successfully logged in",
           status: "success",
           duration: 9000,
           isClosable: true,
-        })
-        console.log('onSuccess: ', data)
-        const response = fetch(
+        });
+        console.log("onSuccess: ", data);
+        const response = await fetch(
           "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/login",
           {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify({
               username: username,
+              email: username,
               password: password,
             }),
           }
-        );
-        const userData = response.json();
-        setUsers(userData);
-        sessionStorage.setItem("userId", userData.id);
-        console.log(userData);
-        window.location.href = "/home";
+        )
+        const apiData = await response.json();
+        console.log(apiData);
+        for(const user of apiData){
+          sessionStorage.setItem("userId", user.id);
+        }
+        // setUsers(apiData);
+        // sessionStorage.setItem("users", apiData.data.body);
+        console.log(users);
+        // console.log(userData);
+        window.location.href = "/";
       },
       onFailure: (err) => {
         toast({
@@ -100,18 +110,15 @@ function Login() {
           status: "error",
           duration: 9000,
           isClosable: true,
-        })
-        console.error('onFailure: ', err)
+        });
+        console.error("onFailure: ", err);
       },
       newPasswordRequired: (userAttributes, requiredAttributes) => {
         delete userAttributes.email_verified;
         user.completeNewPasswordChallenge(password, userAttributes, this);
-      }
-    })
+      },
+    });
 
-    
-    console.log(users);
-    
     // const users = sessionStorage.setItem("users", users[0]);
     // const checkId = sessionStorage.getItem("userId");
     // if (checkId != null) {
@@ -137,7 +144,7 @@ function Login() {
                       <Icon as={MdPersonOutline} boxSize={6} />
                     </InputLeftElement>
                     <Input
-                      placeholder="Username"
+                      placeholder="Username or Email"
                       size="lg"
                       value={username}
                       onChange={handleUsername}
