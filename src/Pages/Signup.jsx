@@ -24,11 +24,13 @@ import {
   VStack,
   HStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdPersonOutline } from "react-icons/md";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import UserPool from "../UserPool";
+import axios from "axios";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 
 function Signup() {
   const [show, setShow] = useState(false);
@@ -89,75 +91,90 @@ function Signup() {
       setPassword("");
       setConfirmPassword("");
     } else {
-      UserPool.signUp(username, password, [], null, (err, data) => {
-        if (data) {
-          try {
-            const response = fetch("http://localhost:3000/signup", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                username: username,
-                password: password,
-                email: email,
-                profilePicture:
-                  "https://image.pngaaa.com/784/4877784-middle.png",
-              }),
-            });
-            onOpen();
-          } catch (err) {
+      UserPool.signUp(
+        username,
+        password,
+        [
+          {
+            Name: "email",
+            Value: email,
+          },
+        ],
+        null,
+        async (err, data) => {
+          if (data) {
+            try {
+              await fetch(
+                "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/register",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                  },
+                  body: JSON.stringify({
+                    username: username,
+                    password: password,
+                    email: email,
+                    profilePicture:
+                      "https://image.pngaaa.com/784/4877784-middle.png",
+                  }),
+                }
+              );
+              onOpen();
+            } catch (err) {
+              console.log(err);
+            }
+          } else if (err) {
             console.log(err);
-          }
-        } else if (err) {
-          console.log(err);
-          switch (err.code) {
-            case "UsernameExistsException":
-              if (!toast.isActive(toastId)) {
-                toast({
-                  toastId,
-                  title: "Username already exists",
-                  description: "Please try again",
-                  status: "error",
-                  duration: 5000,
-                });
-              }
-              break;
-            case "InvalidParameterException":
-              if (!toast.isActive(toastId)) {
-                toast({
-                  toastId,
-                  title: "Missing details",
-                  description: "Please try again",
-                  status: "error",
-                  duration: 5000,
-                });
-              }
-              break;
-            case "InvalidPasswordException":
-              if (!toast.isActive(toastId)) {
-                toast({
-                  toastId,
-                  title: "Invalid password",
-                  description: "Please try again",
-                  status: "error",
-                  duration: 5000,
-                });
-              }
-              break;
-            default:
-              if (!toast.isActive(toastId)) {
-                toast({
-                  toastId,
-                  title: "Error",
-                  description: "Please try again",
-                  status: "error",
-                  duration: 5000,
-                });
-              }
+            switch (err.code) {
+              case "UsernameExistsException":
+                if (!toast.isActive(toastId)) {
+                  toast({
+                    toastId,
+                    title: "Username already exists",
+                    description: "Please try again",
+                    status: "error",
+                    duration: 5000,
+                  });
+                }
+                break;
+              case "InvalidParameterException":
+                if (!toast.isActive(toastId)) {
+                  toast({
+                    toastId,
+                    title: "Missing details",
+                    description: "Please try again",
+                    status: "error",
+                    duration: 5000,
+                  });
+                }
+                break;
+              case "InvalidPasswordException":
+                if (!toast.isActive(toastId)) {
+                  toast({
+                    toastId,
+                    title: "Invalid password",
+                    description: "Please try again",
+                    status: "error",
+                    duration: 5000,
+                  });
+                }
+                break;
+              default:
+                if (!toast.isActive(toastId)) {
+                  toast({
+                    toastId,
+                    title: "Error",
+                    description: "Please try again",
+                    status: "error",
+                    duration: 5000,
+                  });
+                }
+            }
           }
         }
-      });
+      );
     }
   };
 
@@ -219,7 +236,7 @@ function Signup() {
                     placeholder="Username"
                     size="lg"
                     value={username}
-                    onChange={handleUsername}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </InputGroup>
               </Box>
@@ -233,7 +250,7 @@ function Signup() {
                     placeholder="Email"
                     size="lg"
                     value={email}
-                    onChange={handleEmail}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
               </Box>
@@ -248,7 +265,7 @@ function Signup() {
                     size="lg"
                     type={show ? "text" : "password"}
                     value={password}
-                    onChange={handlePassword}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement width="4.5rem">
                     <IconButton
@@ -272,7 +289,7 @@ function Signup() {
                     placeholder="Confirm Password"
                     size="lg"
                     value={confirmPassword}
-                    onChange={handleConfirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     type={confirmShow ? "text" : "password"}
                   />
                   <InputRightElement width="4.5rem">
@@ -321,7 +338,7 @@ function Signup() {
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay>
-          <FormControl onSubmit={onConfirmation}>
+          <FormControl>
             <ModalContent>
               <ModalHeader>Account Created!</ModalHeader>
               <ModalCloseButton />
@@ -343,7 +360,12 @@ function Signup() {
                 <Button variant="ghost" mr={3} onClick={closeModal}>
                   Close
                 </Button>
-                <Button type="submit" variant="solid" colorScheme="blue">
+                <Button
+                  type="submit"
+                  variant="solid"
+                  colorScheme="blue"
+                  onClick={onConfirmation}
+                >
                   Submit
                 </Button>
               </ModalFooter>
