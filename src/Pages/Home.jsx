@@ -70,7 +70,7 @@ function Home() {
           </Center>
         </Box>
       </Center>
-      <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
+      <SimpleGrid minChildWidth="120px" spacing="40px" mt="10" ml="24">
         {postsList.length > 0 &&
           postsList.map((post) => (
             <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
@@ -83,9 +83,7 @@ function Home() {
                 </Box>
               </Box>
               <Box p="6">
-                <Button onClick={() => openModal(post)}>
-                  Details
-                </Button>
+                <Button onClick={() => openModal(post)}>Details</Button>
               </Box>
             </Box>
           ))}
