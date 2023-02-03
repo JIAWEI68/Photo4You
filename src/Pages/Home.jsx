@@ -29,7 +29,6 @@ function Home() {
         "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts"
       );
       const data = await result.json();
-
       setPosts(data);
       console.log(postsList);
     } catch (error) {
