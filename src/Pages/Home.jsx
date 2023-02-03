@@ -52,23 +52,20 @@ function Home() {
   return (
     <div className="container">
       <Center>
-        <Box
-          borderWidth="2px"
-          width="100px"
-          height="30px"
-          mt="5"
-          borderRadius="10"
-          backgroundColor="#00C65A"
-        >
-          <Center>
-            <Link
-              to="/saves"
-              style={{ textDecoration: "none", fontFamily: "Raleway" }}
-            >
+        <Link to="/saves">
+          <Box
+            borderWidth="2px"
+            width="100px"
+            height="30px"
+            mt="5"
+            borderRadius="10"
+            backgroundColor="#00C65A"
+          >
+            <Center style={{ textDecoration: "none", fontFamily: "Raleway" }}>
               Saved
-            </Link>
-          </Center>
-        </Box>
+            </Center>
+          </Box>
+        </Link>
       </Center>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10" ml="24">
         {postsList.length > 0 &&
