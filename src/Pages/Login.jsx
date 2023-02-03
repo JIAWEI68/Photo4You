@@ -28,7 +28,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
 import { useContext } from "react";
-import axios, { Axios } from "axios";
 
 function Login() {
   const [show, setShow] = useState(false);

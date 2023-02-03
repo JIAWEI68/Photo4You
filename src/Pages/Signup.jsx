@@ -29,7 +29,6 @@ import { Link } from "react-router-dom";
 import { MdPersonOutline } from "react-icons/md";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import UserPool from "../UserPool";
-import axios from "axios";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 
 function Signup() {
