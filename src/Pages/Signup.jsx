@@ -188,6 +188,10 @@ function Signup() {
       user.confirmRegistration(code, true, (err, data) => {
         if (data) {
           onClose();
+          setUsername("");
+          setPassword("");
+          setConfirmPassword("");
+          setEmail("");
           if (!toast.isActive(toastId)) {
             toast({
               toastId,
