@@ -21,6 +21,24 @@ const PostsModal = (post) => {
     setPosts(post);
     console.log(posted);
   }, []);
+  const addToSaves = () => {
+    fetch("http://localhost:3000/saves", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth" : sessionStorage.getItem("auth"),
+      },
+      body: JSON.stringify({
+        title: post.props.title,
+        image: post.props.image,
+        username: post.props.username,
+        postsDescription: post.props.postsDescription,
+        userId : sessionStorage.getItem("userId"),
+        postId : post.props.id,
+      }),
+    });
+  };
+
   return (
     <ModalOverlay>
       <ModalContent>
@@ -47,7 +65,9 @@ const PostsModal = (post) => {
                     fontFamily: "Raleway",
                   }}>{post.props.postsDescription}</p>
                 </Box>
-
+                <Box>
+                  <Button onClick={addToSaves}>Save</Button>
+                </Box>
               </VStack>
             </Box>
           </HStack>

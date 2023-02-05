@@ -25,7 +25,7 @@ const Profile = () => {
   };
   const updateProfile = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:3000/users/${id}`, {
+    await fetch(`http://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/user/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
