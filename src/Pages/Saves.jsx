@@ -24,6 +24,7 @@ const Saves = () => {
     const data = await response.json();
     setSaves(data);
   }
+ 
   const openModal = (save) => {
     onOpen;
     setCurrentSaves(save);

@@ -16,6 +16,7 @@ import {
 
 const PostsModal = (post) => {
   const [posted, setPosts] = useState([]);
+  const [checkSave, setCheckSave] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   useEffect(() => {
     console.log(post);
@@ -38,8 +39,18 @@ const PostsModal = (post) => {
         postId : post.props.id,
       }),
     });
+    setCheckSave(true);
   };
-
+  const deleteSaves = (id) => {
+    fetch(`http://localhost:3000/saves/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "auth": sessionStorage.getItem("auth"),
+      },
+    });
+    setCheckSave(false);
+  };
   return (
     <ModalOverlay>
       <ModalContent>
@@ -67,7 +78,7 @@ const PostsModal = (post) => {
                   }}>{post.props.postsDescription}</p>
                 </Box>
                 <Box>
-                  <Button onClick={addToSaves}>Save</Button>
+                  {checkSave ? (<Button onClick={addToSaves}>Save</Button>) : (<Button onClick={deleteSaves}>Unsave</Button>)}
                 </Box>
               </VStack>
             </Box>

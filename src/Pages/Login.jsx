@@ -95,6 +95,7 @@ function Login() {
         console.log(apiData);
         for(const user of apiData){
           sessionStorage.setItem("userId", user.id);
+          sessionStorage.setItem("username", user.username);  
         }
         sessionStorage.setItem("token", "auth");
         // setUsers(apiData);
@@ -148,6 +149,7 @@ function Login() {
                       size="lg"
                       value={username}
                       onChange={handleUsername}
+                      fontFamily = "Raleway"
                     />
                   </InputGroup>
                   {isError ? (
@@ -168,6 +170,7 @@ function Login() {
                       value={password}
                       onChange={handlePassword}
                       size="lg"
+                      fontFamily = "Raleway"
                       type={show ? "text" : "password"}
                     />
                     <InputRightElement width="4.5rem">

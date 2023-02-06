@@ -1,4 +1,10 @@
-import { ModalBody } from "@chakra-ui/react";
+import {   Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton, } from "@chakra-ui/react";
 import React from "react";
 
 const ProfilePostsModal = ({ post }, data) => {
