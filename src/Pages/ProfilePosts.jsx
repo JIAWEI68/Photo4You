@@ -1,45 +1,43 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useDisclosure } from '@chakra-ui/react'
+import React from "react";
+import { useState, useEffect } from "react";
+import { useDisclosure, Box, IconButton, SimpleGrid, Modal } from "@chakra-ui/react";
+import {AddIcon} from "@chakra-ui/icons";
+import ProfilePostsModal from "../Components/ProfilePostsModal";
 
 const ProfilePosts = () => {
-  const [userId, setUserId] = useState("")
-  const [postsList, setPosts] = useState([])
-  const {isOpen, onOpen, onClose} = useDisclosure();
-  const id = sessionStorage.getItem("userId")
-  function openModal(post){
-    onOpen;
+  const [userId, setUserId] = useState("");
+  const [postsList, setPosts] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentPost, setCurrentPost] = useState();
+  const id = sessionStorage.getItem("userId");
+  function openModal(post) {
+    onOpen();
     setCurrentPost(post);
+  }
+  const fetchData = async () => {
+    try {
+      const result = await fetch(
+        `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/user/${id}`
+      );
+      const data = await result.json();
+      setPosts(data);
+      console.log(postsList);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   useEffect(() => {
-    fetch(`http://localhost:3000/posts/${id}`)
-      .then((response) => response.json())
-      .then((data) => setPosts(data));
+    fetchData();
   }, []);
   return (
     <div className="container">
-      <Center>
-        <Box
-          borderWidth="2px"
-          width="100px"
-          height="30px"
-          mt="5"
-          borderRadius="10"
-          backgroundColor="#00C65A"
-        >
-          <Center>
-            <Link
-              to="/saves"
-              style={{ textDecoration: "none", fontFamily: "Raleway" }}
-            >
-              Saved
-            </Link>
-          </Center>
-        </Box>
-      </Center>
+      <Box textAlign={"right"}>
+        <IconButton icon = {<AddIcon/>} />
+      </Box>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
-        {postsList.map((post) => (
-          <Box maxW="sm" borderWidth="1px" borderRadius="lg" key = {post.id}>
+        {postsList.length > 0 && postsList.map((post) => (
+          <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
             <Image src={post.image} />
             <Box p="6">
               <Box display="flex" alignItems="stretch" overflow="hidden">
@@ -56,10 +54,10 @@ const ProfilePosts = () => {
       </SimpleGrid>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
-        <PostsModal props={currentPost} />
+        <ProfilePostsModal props={currentPost} />
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePosts
+export default ProfilePosts;

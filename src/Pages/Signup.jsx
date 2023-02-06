@@ -347,8 +347,7 @@ function Signup() {
               <ModalCloseButton />
               <ModalBody>
                 <Text>
-                  Account has been created! We have sent a confirmation code to
-                  your email.
+                  An email has been sent to {email} with a confirmation code.
                 </Text>
                 <br />
                 <Text mb={2}>Please enter the code below:</Text>

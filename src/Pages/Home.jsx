@@ -17,12 +17,15 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect, handleChange } from "react";
 import { Link } from "react-router-dom";
+import { useStore } from "../States/searchValue";
 import PostsModal from "../Components/PostsModal";
 function Home() {
   const [postsList, setPosts] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selected, setSelected] = useState(null);
   const [currentPost, setCurrentPost] = useState();
+  const searchValue = useStore((state) => state.searchValue);
+
   const fetchData = async () => {
     try {
       const result = await fetch(
@@ -82,7 +85,9 @@ function Home() {
                 <Button onClick={() => openModal(post)}>Details</Button>
               </Box>
             </Box>
-          ))}
+          ))
+          //.filter(post => post.title.toLowerCase().includes(searchValue.toLowerCase()))
+          }
       </SimpleGrid>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>

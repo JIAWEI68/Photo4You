@@ -11,6 +11,7 @@ import {
   useDisclosure,
   HStack,
   VStack,
+  Button
 } from "@chakra-ui/react";
 
 const PostsModal = (post) => {

@@ -29,15 +29,20 @@ import {
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
+import { useStore } from "./States/searchValue";
 
 const Links = ["Login", "Signup"];
 
-
-
 const Navbar = () => {
   const userId = sessionStorage.getItem("userId");
-  const [nullChecker, setUserId] = useState(false); 
+  const [nullChecker, setUserId] = useState(false);
+  const [searchValues, setSearchValues] = useState("");
   
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchValues(e.target.value);
+    useStore.setState({ searchValue: searchValues });
+  };
   useEffect(() => {
     if (userId != null) {
       setUserId(true);
@@ -76,6 +81,7 @@ const Navbar = () => {
               />
               <Input
                 placeholder="Search"
+                onChange={handleSearch}
                 fontSize="20"
                 style={{
                   textDecoration: "none",
@@ -126,6 +132,4 @@ const Navbar = () => {
   );
 };
 
-
-
-export default Navbar; 
+export default Navbar;
