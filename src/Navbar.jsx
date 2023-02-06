@@ -40,7 +40,11 @@ const Navbar = () => {
   
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearchValues(e.target.value);
+    if(e.target.value === null){
+      setSearchValues("");
+    }else{
+      setSearchValues(e.target.value);
+    }
     useStore.setState({ searchValue: searchValues });
   };
   useEffect(() => {

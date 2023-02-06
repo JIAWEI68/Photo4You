@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Modal,
     ModalOverlay,
@@ -13,6 +13,11 @@ import {
   } from '@chakra-ui/react'
 
 const AddPostModal = () => {
+  const [image , setImage] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+
 
   return (
     <ModalOverlay>
@@ -37,14 +42,13 @@ const AddPostModal = () => {
                  </InputGroup>
                 </Box>
                 <Box ml ="50px">
-                  <p style={{
-                    fontFamily: "Raleway",
-                  }}>Taken By: {post.props.username}</p>
+                <InputGroup>
+                   <InputLeftAddon children = {"Description"}/>
+                   <Input type = "Text"/>
+                 </InputGroup>
                 </Box>
                 <Box>
-                  <p style={{
-                    fontFamily: "Raleway",
-                  }}>{post.props.postsDescription}</p>
+                  
                 </Box>
                 <Box>
                   <Button onClick={addToSaves}>Save</Button>

@@ -25,7 +25,7 @@ function Home() {
   const [selected, setSelected] = useState(null);
   const [currentPost, setCurrentPost] = useState();
   const searchValue = useStore((state) => state.searchValue);
-
+  const [searchList, setSearchList] = useState([]);
   const fetchData = async () => {
     try {
       const result = await fetch(
@@ -42,6 +42,7 @@ function Home() {
   useEffect(() => {
     //useEffect is a hook that runs after every render
     fetchData();
+    setSearchList(postsL);
   }, []);
   const onClick = () => {
     setSelected("");
@@ -86,7 +87,7 @@ function Home() {
               </Box>
             </Box>
           ))
-          //.filter(post => post.title.toLowerCase().includes(searchValue.toLowerCase()))
+          //.filter(s => s.title.toLowerCase().includes(searchValue.toLowerCase()))
           }
       </SimpleGrid>
 
