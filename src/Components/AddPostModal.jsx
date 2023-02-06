@@ -1,53 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    InputGroup,
-    InputLeftAddon,
-    Input,
-    Textarea,
-    Text,
-    Image,
-    HStack,
-    VStack,
-    Box,
-    Button,
-    Select
-  } from '@chakra-ui/react'
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  InputGroup,
+  InputLeftAddon,
+  Input,
+  Textarea,
+  Text,
+  Image,
+  HStack,
+  VStack,
+  Box,
+  Button,
+  Select,
+  Center,
+} from "@chakra-ui/react";
 
 const AddPostModal = () => {
-  const [image , setImage] = useState("");
+  const [image, setImage] = useState("a");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type , setType] = useState("Nature");
+  const [type, setType] = useState("Nature");
+  const [checkImage, setCheckImage] = useState(false);
   const handleImage = (e) => {
     setImage(e.target.value);
-  }
+  };
   const handleTitle = (e) => {
     setTitle(e.target.value);
-  }
+  };
   const handleDescription = (e) => {
     setDescription(e.target.value);
-  }
+  };
   const addPost = () => {
     fetch("http://localhost:3000/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth" : sessionStorage.getItem("auth"),
+        auth: sessionStorage.getItem("auth"),
       },
       body: JSON.stringify({
         title: title,
         image: image,
         username: sessionStorage.getItem("username"),
         postsDescription: description,
-        userId : sessionStorage.getItem("userId"),
-
+        userId: sessionStorage.getItem("userId"),
       }),
     });
   };
@@ -55,30 +56,36 @@ const AddPostModal = () => {
     <ModalOverlay>
       <ModalContent>
         <ModalBody>
-          <HStack spacing="20">
-            <Box>
-              <Image src={image} />
+          <HStack spacing="10">
+            <Box borderWidth="1px" borderRadius="lg">
+              <Image src={image} w="200px" h="500px"/>
             </Box>
             <Box>
               <VStack>
-              <Box>
-                 <InputGroup fontFamily="Raleway">
-                   <InputLeftAddon children = {"Image Link"}/>
-                   <Input type = "Text" value = {image} onChange = {handleImage}/>
-                 </InputGroup>
+                <Box>
+                  <InputGroup fontFamily="Raleway">
+                    <InputLeftAddon children={"Image Link"} />
+                    <Input type="Text" value={image} onChange={handleImage} />
+                  </InputGroup>
+                </Box>
+                <Box w="300px">
+                  <InputGroup>
+                    <InputLeftAddon children={"Title"} />
+                    <Input type="Text" onChange={handleTitle} />
+                  </InputGroup>
+                </Box>
+                <Box w="300px">
+                  <Text mb="8px" fontFamily="Raleway">
+                    Description:
+                  </Text>
+                  <Textarea value={description} onChange={handleDescription} />
                 </Box>
                 <Box>
-                 <InputGroup>
-                   <InputLeftAddon children = {"Title"}/>
-                   <Input type = "Text" onChange={handleTitle}/>
-                 </InputGroup>
-                </Box>
-                <Box ml ="50px">
-                <Text mb = "8px" fontFamily="Raleway">Description:</Text>
-                  <Textarea value = {description} onChange = {handleDescription}/>
-                </Box>
-                <Box>
-                  <Select value = {type} onChange = {(e) => setType(e.target.value)}>
+                  <Select
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                    w="300px"
+                  >
                     <option value="nature">Nature</option>
                     <option value="wallpaper">Wallpaper</option>
                     <option value="locations">Locations</option>
@@ -86,9 +93,7 @@ const AddPostModal = () => {
                     <option value="animals">Animals</option>
                   </Select>
                 </Box>
-                <Box>
-
-                </Box>
+                <Box></Box>
                 <Box>
                   <Button>Post</Button>
                 </Box>
@@ -98,7 +103,7 @@ const AddPostModal = () => {
         </ModalBody>
       </ModalContent>
     </ModalOverlay>
-  )
-}
+  );
+};
 
-export default AddPostModal
+export default AddPostModal;

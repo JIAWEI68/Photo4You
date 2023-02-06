@@ -58,7 +58,7 @@ const ProfilePosts = () => {
       <Modal onClose={onClosePosts} isOpen={isOpenPosts} isCentered>
         <ProfilePostsModal props={currentPost} />
       </Modal>
-      <Modal onClose={onCloseAddPost} isOpen = {isOpenAddPost}>
+      <Modal onClose={onCloseAddPost} isOpen = {isOpenAddPost} size = "xl">
         <AddPostModal/>
       </Modal>
     </div>
