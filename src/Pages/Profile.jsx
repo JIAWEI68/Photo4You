@@ -94,9 +94,7 @@ const Profile = () => {
           alignItems="stretch"
         >
           <Center>
-            <Box h="320" w="350px" borderWidth="1px" mt="0">
-              <Image src={profilePicture} fit={true} />
-            </Box>
+            <Image src={profilePicture} fit={true} />
           </Center>
           <Center>
             <Box mt="10px">

@@ -86,7 +86,7 @@ const ProfilePostsModal = (post ) => {
                   <Text mb="8px" fontFamily="Raleway">
                     Description:
                   </Text>
-                  <Textarea value={post.props.description} onChange={handleDescription} />
+                  <Input value={post.props.description} onChange={handleDescription} />
                 </Box>
                 <Box>
                   <Select
