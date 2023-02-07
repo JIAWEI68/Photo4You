@@ -14,16 +14,19 @@ import {
   MenuItem,
   MenuGroup,
   MenuDivider,
-  Button
+  Button,
+  Avatar,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserPool from "../UserPool";
+import { userStores } from "../States/userState";
 
 function loginNavbar() {
   const [profilePicture, setProfilePicture] = useState("");
   const user = sessionStorage.getItem("userId");
+  const [userState, setUserState] = userStores((state) => [state.user]);
 
   useEffect(() => {
     if (user == null) {
@@ -31,7 +34,7 @@ function loginNavbar() {
         "https://p.kindpng.com/picc/s/623-6236350_profile-icon-png-white-clipart-png-download-windows.png"
       );
     } else if (user != null) {
-      setProfilePicture(JSON.parse(user).profilePicture);
+      setProfilePicture(userState.profilePicture);
     }
   }, []);
 
@@ -94,12 +97,20 @@ function loginNavbar() {
         <Spacer />
         <Box h="30px" mt="1" mr="10" mb="3">
           <Menu>
-            <MenuButton as = {Button}>
-              Profile
+            <MenuButton
+              as={Button}
+              nrounded={"full"}
+              variant={"link"}
+              cursor={"pointer"}
+              minW={0}
+            >
+              <Avatar src={profilePicture} />
             </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">
-                <MenuItem><Link to = "/profile">Account</Link></MenuItem>
+                <MenuItem>
+                  <Link to="/profile">Account</Link>
+                </MenuItem>
                 <MenuItem onClick={signOut}>Sign Out</MenuItem>
               </MenuGroup>
               <MenuDivider />

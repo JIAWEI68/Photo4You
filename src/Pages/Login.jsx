@@ -96,6 +96,7 @@ function Login() {
         for(const user of apiData){
           sessionStorage.setItem("userId", user.id);
           sessionStorage.setItem("username", user.username);  
+          sessionStorage.setItem("profile picture", user.profilePicture);
         }
         sessionStorage.setItem("token", "auth");
         // setUsers(apiData);

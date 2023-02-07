@@ -11,42 +11,54 @@ import {
   useDisclosure,
   HStack,
   VStack,
-  Button
+  Button,
+  useToast,
 } from "@chakra-ui/react";
 
 const PostsModal = (post) => {
   const [posted, setPosts] = useState([]);
   const [checkSave, setCheckSave] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   useEffect(() => {
     console.log(post);
     setPosts(post);
     console.log(posted);
   }, []);
   const addToSaves = () => {
-    fetch("http://localhost:3000/saves", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "auth" : sessionStorage.getItem("auth"),
-      },
-      body: JSON.stringify({
-        title: post.props.title,
-        image: post.props.image,
-        username: post.props.username,
-        postsDescription: post.props.postsDescription,
-        userId : sessionStorage.getItem("userId"),
-        postId : post.props.id,
-      }),
-    });
-    setCheckSave(true);
+    if (userId == null) {
+      toast({
+        title: "You must be logged in to save a post.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      return;
+    } else {
+      fetch("http://localhost:3000/saves", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          auth: sessionStorage.getItem("auth"),
+        },
+        body: JSON.stringify({
+          title: post.props.title,
+          image: post.props.image,
+          username: post.props.username,
+          postsDescription: post.props.postsDescription,
+          userId: sessionStorage.getItem("userId"),
+          postId: post.props.id,
+        }),
+      });
+      setCheckSave(true);
+    }
   };
   const deleteSaves = (id) => {
     fetch(`http://localhost:3000/saves/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth": sessionStorage.getItem("auth"),
+        auth: sessionStorage.getItem("auth"),
       },
     });
     setCheckSave(false);
@@ -62,23 +74,39 @@ const PostsModal = (post) => {
             <Box>
               <VStack>
                 <Box>
-                  <h1 style={{
-                    fontFamily: "Raleway",
-                    fontWeight: "bold",
-                  }}>{post.props.title}</h1>
+                  <h1
+                    style={{
+                      fontFamily: "Raleway",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {post.props.title}
+                  </h1>
                 </Box>
-                <Box ml ="50px">
-                  <p style={{
-                    fontFamily: "Raleway",
-                  }}>Taken By: {post.props.username}</p>
+                <Box ml="50px">
+                  <p
+                    style={{
+                      fontFamily: "Raleway",
+                    }}
+                  >
+                    Taken By: {post.props.username}
+                  </p>
                 </Box>
                 <Box>
-                  <p style={{
-                    fontFamily: "Raleway",
-                  }}>{post.props.postsDescription}</p>
+                  <p
+                    style={{
+                      fontFamily: "Raleway",
+                    }}
+                  >
+                    {post.props.postsDescription}
+                  </p>
                 </Box>
                 <Box>
-                  {checkSave ? (<Button onClick={addToSaves}>Save</Button>) : (<Button onClick={deleteSaves}>Unsave</Button>)}
+                  {checkSave ? (
+                    <Button onClick={addToSaves}>Save</Button>
+                  ) : (
+                    <Button onClick={deleteSaves(post.props.id)}>Unsave</Button>
+                  )}
                 </Box>
               </VStack>
             </Box>
