@@ -42,7 +42,6 @@ function Home() {
   useEffect(() => {
     //useEffect is a hook that runs after every render
     fetchData();
-    setSearchList(postsL);
   }, []);
   const onClick = () => {
     setSelected("");
@@ -71,27 +70,28 @@ function Home() {
         </Link>
       </Center>
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10" ml="24">
-        {postsList.length > 0 &&
-          postsList.map((post) => (
-            <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
-              <Image src={post.image} />
-              <Box p="6">
-                <Box display="flex" alignItems="stretch" overflow="hidden">
-                  <Box mt="1" font="Raleway">
-                    {post.title}
+        {
+          postsList.length > 0 &&
+            postsList.map((post) => (
+              <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
+                <Image src={post.image} />
+                <Box p="6">
+                  <Box display="flex" alignItems="stretch" overflow="hidden">
+                    <Box mt="1" font="Raleway">
+                      {post.title}
+                    </Box>
                   </Box>
                 </Box>
+                <Box p="6">
+                  <Button onClick={() => openModal(post)}>Details</Button>
+                </Box>
               </Box>
-              <Box p="6">
-                <Button onClick={() => openModal(post)}>Details</Button>
-              </Box>
-            </Box>
-          ))
+            ))
           //.filter(s => s.title.toLowerCase().includes(searchValue.toLowerCase()))
-          }
+        }
       </SimpleGrid>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl">
         <PostsModal props={currentPost} />
       </Modal>
     </div>

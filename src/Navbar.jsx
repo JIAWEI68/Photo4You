@@ -37,12 +37,12 @@ const Navbar = () => {
   const userId = sessionStorage.getItem("userId");
   const [nullChecker, setUserId] = useState(false);
   const [searchValues, setSearchValues] = useState("");
-  
+
   const handleSearch = (e) => {
     e.preventDefault();
-    if(e.target.value === null){
+    if (e.target.value === null) {
       setSearchValues("");
-    }else{
+    } else {
       setSearchValues(e.target.value);
     }
     useStore.setState({ searchValue: searchValues });
@@ -85,7 +85,6 @@ const Navbar = () => {
               />
               <Input
                 placeholder="Search"
-                onChange={handleSearch}
                 fontSize="20"
                 style={{
                   textDecoration: "none",

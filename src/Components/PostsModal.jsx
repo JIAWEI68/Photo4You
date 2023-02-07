@@ -13,6 +13,7 @@ import {
   VStack,
   Button,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 
 const PostsModal = (post) => {
@@ -20,6 +21,7 @@ const PostsModal = (post) => {
   const [checkSave, setCheckSave] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const userId = sessionStorage.getItem("userId");
   useEffect(() => {
     console.log(post);
     setPosts(post);
@@ -50,7 +52,12 @@ const PostsModal = (post) => {
           postId: post.props.id,
         }),
       });
-      setCheckSave(true);
+      toast({
+        title: "Post saved.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
   const deleteSaves = (id) => {
@@ -67,13 +74,13 @@ const PostsModal = (post) => {
     <ModalOverlay>
       <ModalContent>
         <ModalBody>
-          <HStack spacing="20">
+          <HStack spacing="10">
             <Box>
-              <img src={post.props.image} />
+              <Image src={post.props.image} w="400px" />
             </Box>
             <Box>
-              <VStack>
-                <Box>
+              <VStack w="50px">
+                <Box w="50px">
                   <h1
                     style={{
                       fontFamily: "Raleway",
@@ -102,11 +109,7 @@ const PostsModal = (post) => {
                   </p>
                 </Box>
                 <Box>
-                  {checkSave ? (
-                    <Button onClick={addToSaves}>Save</Button>
-                  ) : (
-                    <Button onClick={deleteSaves(post.props.id)}>Unsave</Button>
-                  )}
+                  <Button onClick={addToSaves}>Save</Button>
                 </Box>
               </VStack>
             </Box>

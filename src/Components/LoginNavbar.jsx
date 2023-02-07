@@ -34,7 +34,7 @@ function loginNavbar() {
         "https://p.kindpng.com/picc/s/623-6236350_profile-icon-png-white-clipart-png-download-windows.png"
       );
     } else if (user != null) {
-      setProfilePicture(userState.profilePicture);
+      // setProfilePicture(userState.profilePicture);
     }
   }, []);
 
@@ -104,7 +104,8 @@ function loginNavbar() {
               cursor={"pointer"}
               minW={0}
             >
-              <Avatar src={profilePicture} />
+              Profile
+              {/* <Avatar src={profilePicture} /> */}
             </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">
