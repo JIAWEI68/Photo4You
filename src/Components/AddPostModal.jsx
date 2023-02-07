@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 
 const AddPostModal = () => {
-  const [image, setImage] = useState("a");
+  const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Nature");
@@ -37,11 +37,11 @@ const AddPostModal = () => {
     setDescription(e.target.value);
   };
   const addPost = () => {
-    fetch("http://localhost:3000/posts", {
+    fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        auth: sessionStorage.getItem("auth"),
+        authorize: sessionStorage.getItem("token"),
       },
       body: JSON.stringify({
         title: title,
@@ -49,6 +49,7 @@ const AddPostModal = () => {
         username: sessionStorage.getItem("username"),
         postsDescription: description,
         userId: sessionStorage.getItem("userId"),
+        type : type
       }),
     });
   };

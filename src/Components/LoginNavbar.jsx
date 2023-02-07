@@ -96,9 +96,11 @@ function loginNavbar() {
             </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">
+                <Link to="/profile">
                 <MenuItem>
-                  <Link to="/profile">Account</Link>
+                 Account
                 </MenuItem>
+                </Link>
                 <MenuItem onClick={signOut}>Sign Out</MenuItem>
               </MenuGroup>
               <MenuDivider />

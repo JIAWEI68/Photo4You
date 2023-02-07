@@ -69,7 +69,7 @@ function Home() {
           </Box>
         </Link>
       </Center>
-      <SimpleGrid minChildWidth="120px" spacing="40px" mt="10" ml="24">
+      <SimpleGrid minChildWidth="120px" spacing="10" mt="10" ml="24">
         {
           postsList.length > 0 &&
             postsList.map((post) => (

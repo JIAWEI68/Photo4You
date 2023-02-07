@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDisclosure, Box, IconButton, SimpleGrid, Modal} from "@chakra-ui/react";
+import { useDisclosure, Box, IconButton, SimpleGrid, Modal, Button, Image} from "@chakra-ui/react";
 import {AddIcon} from "@chakra-ui/icons";
 import ProfilePostsModal from "../Components/ProfilePostsModal";
 import AddPostModal from "../Components/AddPostModal";
@@ -13,13 +13,20 @@ const ProfilePosts = () => {
   const [currentPost, setCurrentPost] = useState();
   const id = sessionStorage.getItem("userId");
   function openModal(post) {
-    onOpen();
+    onOpenPosts();
     setCurrentPost(post);
   }
   const fetchData = async () => {
     try {
       const result = await fetch(
-        `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/user/${id}`
+        `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/user/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
       const data = await result.json();
       setPosts(data);
@@ -37,7 +44,7 @@ const ProfilePosts = () => {
       <Box textAlign={"right"}>
         <IconButton icon = {<AddIcon/>} onClick = {onOpenAddPost}/>
       </Box>
-      <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
+      <SimpleGrid minChildWidth="120px" spacing="40px" mt="10" ml="24">
         {postsList.length > 0 && postsList.map((post) => (
           <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
             <Image src={post.image} />
@@ -49,13 +56,13 @@ const ProfilePosts = () => {
               </Box>
             </Box>
             <Box p="6">
-              <Button onClick={openModal(post)}>Details</Button>
+              <Button onClick={() => openModal(post)}>Details</Button>
             </Box>
           </Box>
         ))}
       </SimpleGrid>
 
-      <Modal onClose={onClosePosts} isOpen={isOpenPosts} isCentered>
+      <Modal onClose={onClosePosts} isOpen={isOpenPosts} isCentered size = "xl">
         <ProfilePostsModal props={currentPost} />
       </Modal>
       <Modal onClose={onCloseAddPost} isOpen = {isOpenAddPost} size = "xl">

@@ -9,22 +9,64 @@ import {   Modal,
   useDisclosure,
   HStack,
   VStack,
-  Button
- } from "@chakra-ui/react";
-import React from "react";
+  Button,
+  InputGroup,
+  InputLeftAddon,
+  Input,
+  Textarea,
+  Text,
+  Image,
+  Select,
+  Center,
 
-const ProfilePostsModal = ({ post }, data) => {
+ } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+
+const ProfilePostsModal = (post ) => {
   const [image, setImage] = useState("a");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Nature");
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  const handleImage = (e) => {
+    setImage(e.target.value);
+  };
+
+  const editPost = () => {
+    fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        auth: sessionStorage.getItem("auth"),
+      },
+      body: JSON.stringify({
+        title: title,
+        image: image,
+        username: sessionStorage.getItem("username"),
+        postsDescription: description,
+        userId: sessionStorage.getItem("userId"),
+        type : type
+      }),
+    });
+  };
+
+  useEffect(() => {
+    console.log(post);
+  }, []);
+
   return (
     <ModalOverlay>
       <ModalContent>
         <ModalBody>
           <HStack spacing="10">
             <Box borderWidth="1px" borderRadius="lg">
-              <Image src={post.props.image} w="200px" h="500px"/>
+              <Image src={post.props.image} w="500px" h="500px"/>
             </Box>
             <Box>
               <VStack>
@@ -37,14 +79,14 @@ const ProfilePostsModal = ({ post }, data) => {
                 <Box w="300px">
                   <InputGroup>
                     <InputLeftAddon children={"Title"} />
-                    <Input type="Text" onChange={handleTitle} />
+                    <Input type="Text" onChange={handleTitle} value = {post.props.title}/>
                   </InputGroup>
                 </Box>
                 <Box w="300px">
                   <Text mb="8px" fontFamily="Raleway">
                     Description:
                   </Text>
-                  <Textarea value={description} onChange={handleDescription} />
+                  <Textarea value={post.props.description} onChange={handleDescription} />
                 </Box>
                 <Box>
                   <Select
@@ -61,7 +103,7 @@ const ProfilePostsModal = ({ post }, data) => {
                 </Box>
                 <Box></Box>
                 <Box>
-                  <Button onClick={addPost}>Post</Button>
+                  <Button onClick={editPost}>Post</Button>
                 </Box>
               </VStack>
             </Box>
