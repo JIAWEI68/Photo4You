@@ -36,8 +36,9 @@ const AddPostModal = () => {
   const handleDescription = (e) => {
     setDescription(e.target.value);
   };
-  const addPost = () => {
-    fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts", {
+  const addPost = async () => {
+    try{
+      await fetch("https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +53,11 @@ const AddPostModal = () => {
         type : type
       }),
     });
+    window.location.reload();
+    }
+    catch(err){
+      console.log(err);
+    }
   };
   return (
     <ModalOverlay>
