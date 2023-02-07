@@ -16,6 +16,8 @@ import { useState, state } from "react";
 import { MdPersonOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { userStores } from "../States/userState";
+import { AuthenticationDetails } from "amazon-cognito-identity-js";
+import UserPool from "../UserPool";
 const Profile = () => {
   const [profile, setProfile] = useState([]);
   const [username, setUsername] = useState("");
@@ -35,23 +37,25 @@ const Profile = () => {
   const handleProfilePicture = (e) => {
     setProfilePicture(e.target.value);
   };
-  const updateProfile = async (e) => {
-    e.preventDefault();
+  const updateProfile = async () => {
     await fetch(
-      `http://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/user/${id}`,
+      `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/user/${id}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          authorize: "auth",
         },
         body: JSON.stringify({
-          username: username,
+          profilePicture: profilePicture,
           email: email,
           password: password,
-          profilePicture: profilePicture,
+          username: username,
         }),
       }
     );
+    sessionStorage.setItem("profile picture", profilePicture);
   };
   const getProfile = async () => {
     const response = await fetch(
@@ -91,7 +95,7 @@ const Profile = () => {
         >
           <Center>
             <Box h="320" w="350px" borderWidth="1px" mt="0">
-              <Image src={profile.profilePicture} h="195.7" w="195.7" />
+              <Image src={profilePicture} fit={true} />
             </Box>
           </Center>
           <Center>

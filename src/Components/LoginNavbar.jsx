@@ -24,20 +24,9 @@ import UserPool from "../UserPool";
 import { userStores } from "../States/userState";
 
 function loginNavbar() {
-  const [profilePicture, setProfilePicture] = useState("");
   const user = sessionStorage.getItem("userId");
   const [userState, setUserState] = userStores((state) => [state.user]);
-
-  useEffect(() => {
-    if (user == null) {
-      setProfilePicture(
-        "https://p.kindpng.com/picc/s/623-6236350_profile-icon-png-white-clipart-png-download-windows.png"
-      );
-    } else if (user != null) {
-      // setProfilePicture(userState.profilePicture);
-    }
-  }, []);
-
+  const profilePicture = sessionStorage.getItem("profilePicture");
   const signOut = () => {
     const user = UserPool.getCurrentUser();
     user.signOut();
@@ -102,10 +91,8 @@ function loginNavbar() {
               nrounded={"full"}
               variant={"link"}
               cursor={"pointer"}
-              minW={0}
             >
-              Profile
-              {/* <Avatar src={profilePicture} /> */}
+              <Avatar src={profilePicture} />
             </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">

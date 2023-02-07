@@ -63,11 +63,11 @@ function Login() {
       Username: username,
       Pool: UserPool,
     });
-    const authDetials = new AuthenticationDetails({
+    const authDetails = new AuthenticationDetails({
       Username: username,
       Password: password,
     });
-    user.authenticateUser(authDetials, {
+    user.authenticateUser(authDetails, {
       onSuccess: async (data) => {
         toast({
           title: "Login Success",

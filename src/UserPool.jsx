@@ -6,4 +6,3 @@ const poolData = {
 };
 
 export default new CognitoUserPool(poolData);
-
