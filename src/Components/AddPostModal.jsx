@@ -95,7 +95,7 @@ const AddPostModal = () => {
                 </Box>
                 <Box></Box>
                 <Box>
-                  <Button>Post</Button>
+                  <Button onClick={addPost}>Post</Button>
                 </Box>
               </VStack>
             </Box>
