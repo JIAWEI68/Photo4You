@@ -68,7 +68,7 @@ const Profile = () => {
     const data = await response.json();
     console.log(data);
     setProfile(data);
-    useStore.setState({ user: data });
+    userStores.setState({ user: data });
     for (const user of data) {
       setUsername(user.username);
       setEmail(user.email);
