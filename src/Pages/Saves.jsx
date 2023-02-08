@@ -26,7 +26,7 @@ const Saves = () => {
   }
  
   const openModal = (save) => {
-    onOpen;
+    onOpen();
     setCurrentSaves(save);
   };
   React.useEffect(() => {
@@ -38,7 +38,7 @@ const Saves = () => {
       {" "}
       <SimpleGrid minChildWidth="120px" spacing="40px" mt="10">
         {savesList.map((save) => (
-          <Box maxW="sm" borderWidth="1px" borderRadius="lg">
+          <Box maxW="sm" borderWidth="1px" borderRadius="lg" key = {save.id}>
             <Image src={save.image} />
             <Box p="6">
               <Box display="flex" alignItems="stretch" overflow="hidden">
@@ -48,7 +48,7 @@ const Saves = () => {
               </Box>
             </Box>
             <Box p="6">
-              <Button onClick={openModal(save)}>Details</Button>
+              <Button onClick={() => openModal(save)}>Details</Button>
             </Box>
           </Box>
         ))}

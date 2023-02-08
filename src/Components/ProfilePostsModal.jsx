@@ -30,6 +30,7 @@ const ProfilePostsModal = (post ) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Nature");
+  const id = post.props.id;
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -41,7 +42,7 @@ const ProfilePostsModal = (post ) => {
   };
 
   const editPost = () => {
-    fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/`, {
+    fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +85,7 @@ const ProfilePostsModal = (post ) => {
             <Box>
               <VStack>
                 <Box textAlign={left}>
-                  <IconButton icon={<DeleteIcon/>}/>
+                  <IconButton icon={<DeleteIcon/>} onClick = {deletePost}/>
                 </Box>
                 <Box>
                   <InputGroup fontFamily="Raleway">
@@ -106,7 +107,7 @@ const ProfilePostsModal = (post ) => {
                 </Box>
                 <Box>
                   <Select
-                    value={type}
+                    value={post.props.type}
                     onChange={(e) => setType(e.target.value)}
                     w="300px"
                   >
