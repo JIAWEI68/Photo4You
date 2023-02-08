@@ -14,8 +14,12 @@ import {
   ModalContent,
   ModalBody,
   useDisclosure,
+  InputGroup,
+  InputRightElement,
+  Input,
 } from "@chakra-ui/react";
 import React, { useState, useEffect, handleChange } from "react";
+import { SearchIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useStore } from "../States/searchValue";
 import PostsModal from "../Components/PostsModal";
@@ -24,8 +28,8 @@ function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selected, setSelected] = useState(null);
   const [currentPost, setCurrentPost] = useState();
-  const searchValue = useStore((state) => state.searchValue);
-  const [searchList, setSearchList] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchedPosts, setSearchedPosts] = useState([]);
   const fetchData = async () => {
     try {
       const result = await fetch(
@@ -38,14 +42,17 @@ function Home() {
       console.log(error);
     }
   };
-  let postsL = Array.from(postsList);
   useEffect(() => {
     //useEffect is a hook that runs after every render
     fetchData();
   }, []);
-  const onClick = () => {
-    setSelected("");
-  };
+  useEffect(() => {
+    setSearchedPosts(
+      [...postsList].filter((post) =>
+        post.title.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+  }, [postsList, searchValue]);
   function openModal(post) {
     onOpen();
     setCurrentPost(post);
@@ -53,6 +60,32 @@ function Home() {
 
   return (
     <div className="container">
+      <Center>
+        <Box my="10px" mx = "10">
+          <InputGroup>
+            <InputRightElement
+              pointerEvents="none"
+              children={<SearchIcon color="grey.300" textAlign="center" />}
+            />
+            <Input
+              placeholder="Search"
+              fontSize="20"
+              style={{
+                textDecoration: "none",
+                textAlign: "center",
+                borderRadius: "0.5rem",
+                width: "344px",
+                background: "white",
+                height: "38px",
+                color: "black",
+                fontFamily: "Raleway",
+              }}
+              size="lg"
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </InputGroup>
+        </Box>
+      </Center>
       <Center>
         <Link to="/saves">
           <Box
@@ -69,10 +102,15 @@ function Home() {
           </Box>
         </Link>
       </Center>
-      <SimpleGrid minChildWidth="120px" spacing="10" mt="10" ml="24">
+      <SimpleGrid
+        spacing="10"
+        my="10"
+        mx = "24"
+        columns={[1,4]}
+      >
         {
-          postsList.length > 0 &&
-            postsList.map((post) => (
+          searchedPosts.length > 0 &&
+            searchedPosts.map((post) => (
               <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
                 <Image src={post.image} />
                 <Box p="6">
@@ -87,7 +125,7 @@ function Home() {
                 </Box>
               </Box>
             ))
-          //.filter(s => s.title.toLowerCase().includes(searchValue.toLowerCase()))
+          //.filter(s => s.title.toLowerCase() == searchValue.toLowerCase())
         }
       </SimpleGrid>
 

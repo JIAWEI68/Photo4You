@@ -82,7 +82,7 @@ const ProfilePostsModal = (post ) => {
             </Box>
             <Box>
               <VStack>
-                <Box textAlign={left}>
+                <Box textAlign="left">
                   <IconButton icon={<DeleteIcon/>} onClick = {deletePost}/>
                 </Box>
                 <Box>
@@ -94,14 +94,14 @@ const ProfilePostsModal = (post ) => {
                 <Box w="300px">
                   <InputGroup>
                     <InputLeftAddon children={"Title"} />
-                    <Input type="Text" onChange={handleTitle} value = {post.props.title}/>
+                    <Input type="Text" onChange={handleTitle} value = {post.props.title} fontFamily = "Raleway"/>
                   </InputGroup>
                 </Box>
                 <Box w="300px">
                   <Text mb="8px" fontFamily="Raleway">
                     Description:
                   </Text>
-                  <Input value={post.props.description} onChange={handleDescription} />
+                  <Textarea value = {post.props.postsDescription} onChange = {(e) => setDescription(e.target.value)} fontFamily = "Raleway"/>
                 </Box>
                 <Box>
                   <Select

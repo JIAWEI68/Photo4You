@@ -15,14 +15,25 @@ import {
   useToast,
   Image,
 } from "@chakra-ui/react";
+import { saveStore } from "../States/savesStore";
 
 const PostsModal = (post) => {
   const [posted, setPosts] = useState([]);
   const [checkSave, setCheckSave] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [saves, setSaves] = useState([]);
   const toast = useToast();
+  const [saveText, setSaveText] = useState("Save");
   const userId = sessionStorage.getItem("userId");
+  const fetchData = async () => {
+    const response = await fetch(
+      `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/saves/user/${userId}`
+    );
+    const data = await response.json();
+    setSaves(data);
+  };
+
   useEffect(() => {
+    fetchData();
     console.log(post);
     setPosts(post);
     console.log(posted);
@@ -35,40 +46,48 @@ const PostsModal = (post) => {
         duration: 9000,
         isClosable: true,
       });
-      return;
     } else {
-      fetch("http://localhost:3000/saves", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          auth: sessionStorage.getItem("auth"),
-        },
-        body: JSON.stringify({
-          title: post.props.title,
-          image: post.props.image,
-          username: post.props.username,
-          postsDescription: post.props.postsDescription,
-          userId: sessionStorage.getItem("userId"),
-          postId: post.props.id,
-        }),
-      });
-      toast({
-        title: "Post saved.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
+      if (saves.includes(post.props.title) && saves.includes(userId)) {
+        toast({
+          title: "Post already saved.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+        setSaveText("Saved");
+      } else {
+        try {
+          fetch(
+            "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/saves",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                authorize: sessionStorage.getItem("token"),
+                "Allow-Control-Allow-Origin": "*",
+              },
+              body: JSON.stringify({
+                title: post.props.title,
+                image: post.props.image,
+                username: post.props.username,
+                postsDescription: post.props.postsDescription,
+                type: post.props.type,
+                userId: sessionStorage.getItem("userId"),
+                postId: post.props.id,
+              }),
+            }
+          );
+        } catch (err) {
+          console.log(err);
+        }
+        toast({
+          title: "Post saved.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     }
-  };
-  const deleteSaves = (id) => {
-    fetch(`http://localhost:3000/saves/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        auth: sessionStorage.getItem("auth"),
-      },
-    });
-    setCheckSave(false);
   };
   return (
     <ModalOverlay>
@@ -80,7 +99,7 @@ const PostsModal = (post) => {
             </Box>
             <Box>
               <VStack w="50px">
-                <Box w="50px">
+                <Box w="100px">
                   <h1
                     style={{
                       fontFamily: "Raleway",
@@ -90,7 +109,7 @@ const PostsModal = (post) => {
                     {post.props.title}
                   </h1>
                 </Box>
-                <Box ml="50px">
+                <Box ml="50px" w="100px">
                   <p
                     style={{
                       fontFamily: "Raleway",
@@ -99,7 +118,7 @@ const PostsModal = (post) => {
                     Taken By: {post.props.username}
                   </p>
                 </Box>
-                <Box>
+                <Box w="100px">
                   <p
                     style={{
                       fontFamily: "Raleway",
@@ -109,7 +128,7 @@ const PostsModal = (post) => {
                   </p>
                 </Box>
                 <Box>
-                  <Button onClick={addToSaves}>Save</Button>
+                  <Button onClick={addToSaves}>{saveText}</Button>
                 </Box>
               </VStack>
             </Box>
