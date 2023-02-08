@@ -37,9 +37,7 @@ const ProfilePostsModal = (post ) => {
   const handleDescription = (e) => {
     setDescription(e.target.value);
   };
-  const handleImage = (e) => {
-    setImage(e.target.value);
-  };
+
 
   const editPost = () => {
     fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${id}`, {
