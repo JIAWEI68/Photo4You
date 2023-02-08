@@ -1,3 +1,4 @@
+import { DeleteIcon } from "@chakra-ui/icons";
 import {   Modal,
   ModalOverlay,
   ModalContent,
@@ -18,6 +19,7 @@ import {   Modal,
   Image,
   Select,
   Center,
+  IconButton,
 
  } from "@chakra-ui/react";
 import React, { useEffect } from "react";
@@ -56,6 +58,17 @@ const ProfilePostsModal = (post ) => {
     });
   };
 
+  const deletePost = () => {
+    fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${post.props.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorize: sessionStorage.getItem("token"),
+      },
+    });
+  };
+
+
   useEffect(() => {
     console.log(post);
   }, []);
@@ -70,6 +83,9 @@ const ProfilePostsModal = (post ) => {
             </Box>
             <Box>
               <VStack>
+                <Box textAlign={left}>
+                  <IconButton icon={<DeleteIcon/>}/>
+                </Box>
                 <Box>
                   <InputGroup fontFamily="Raleway">
                     <InputLeftAddon children={"Image Link"} />

@@ -7,6 +7,9 @@ import {
   Input,
   Textarea,
   useToast,
+  Button,
+  Text,
+  VStack
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -96,7 +99,8 @@ const Contact = () => {
             </Box>
           </Center>
         </Box>
-        <Box>
+      </HStack>
+      <Box>
           <Center>
             <Box>
               <InputGroup>
@@ -122,14 +126,13 @@ const Contact = () => {
                 <Textarea onChange={(e) => setDescription(e.target.value)} />
               </InputGroup>
             </Box>
-            <Box>
+          </Center>
+        </Box>
+        <Box>
               <Center>
                 <Button onClick={sendEmail}>Submit</Button>
               </Center>
             </Box>
-          </Center>
-        </Box>
-      </HStack>
     </div>
   );
 };
