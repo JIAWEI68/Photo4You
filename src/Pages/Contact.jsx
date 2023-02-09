@@ -11,16 +11,32 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [firstName, setFirstName] = useState("");
+  const contactForm = useRef();
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
   const toast = useToast();
-  const sendEmail = () => {
+  const sendEmail = (e) => {
+    e.preventDefault();
+    const templateParams = {
+      to_name: `Mr/Ms ${firstName} ${lastName}`,
+      from_name: "Photo4You",
+      message: `Hello, we have recieved your feed back for the issue ${description} and we will get back to you as soon as possible. Thank you for your patience. `,
+      email: email,
+      reply_to: "ang.jiawei56@gmail.com",
+    };
+    const templateParams2 = {
+      to_name: `jw`,
+      from_name: "Photo4You",
+      message: description,
+      email: email,
+      reply_to: "",
+    };
     if (
       firstName === "" ||
       lastName === "" ||
@@ -36,20 +52,18 @@ const Contact = () => {
       });
     } else {
       try {
-        emailjs.sendForm("service_5qq5fyw", "template_y63zpgv", {
-          to_name: `Mr/Ms ${firstName} ${lastName}`,
-          from_name: "Photo4You",
-          message: `Hello, we have recieved your feed back for the issue ${description} and we will get back to you as soon as possible. Thank you for your patience. `,
-          email: email,
-          reply_to: "ang.jiawei56@gmail.com",
-        }, "l7CUySFkN1Z7OEdrY");
-        emailjs.sendForm("service_5qq5fyw", "template_quisxhl", {
-          to_name: `jw`,
-          from_name: "Photo4You",
-          message: description,
-          email: email,
-          reply_to: "",
-        }, "l7CUySFkN1Z7OEdrY");
+        emailjs.send(
+          "service_5qq5fyw",
+          "template_y63zpgv",
+          templateParams,
+          "l7CUySFkN1Z7OEdrY"
+        );
+        emailjs.send(
+          "service_5qq5fyw",
+          "template_quisxhl",
+          templateParams2,
+          "l7CUySFkN1Z7OEdrY"
+        );
         fetch(
           "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/contact",
           {
@@ -91,47 +105,51 @@ const Contact = () => {
         <HStack spacing={10}>
           <Box mx="40">
             <Box>
-              <Text fontSize={30} color={"#00C65A"}>
-                <h1>Require Assistance?</h1>
+              <Text fontSize={30} color={"#00C65A"} fontFamily="Raleway">
+                Require Assistance?
               </Text>
-              <Text>
-                <h2>Contact us by filling in this form with your inquiries!</h2>
+              <Text fontFamily="Raleway">
+                Contact us by filling in this form with your inquiries!
               </Text>
             </Box>
           </Box>
+
           <VStack>
             <Box>
               <HStack>
                 {" "}
                 <Box>
-                  <Text>First Name</Text>
+                  <Text fontFamily="Raleway">First Name</Text>
                   <InputGroup>
-                    <Input onChange={(e) => setFirstName(e.target.value)} />
+                    <Input
+                      onChange={(e) => setFirstName(e.target.value)}
+                      fontFamily="Raleway"
+                    />
                   </InputGroup>
                 </Box>
                 <Box>
-                  <Text>Last Name</Text>
+                  <Text fontFamily="Raleway">Last Name</Text>
                   <InputGroup>
-                    <Input onChange={(e) => setLastName(e.target.value)} />
+                    <Input onChange={(e) => setLastName(e.target.value)} fontFamily="Raleway" />
                   </InputGroup>
                 </Box>
               </HStack>
               <Box my="4">
-                <Text>Email</Text>
+                <Text fontFamily="Raleway">Email</Text>
                 <InputGroup>
-                  <Input onChange={(e) => setEmail(e.target.value)} />
+                  <Input onChange={(e) => setEmail(e.target.value)} fontFamily="Raleway"/>
                 </InputGroup>
               </Box>
               <Box>
-                <Text>Description</Text>
+                <Text fontFamily="Raleway">Description</Text>
                 <InputGroup>
-                  <Textarea onChange={(e) => setDescription(e.target.value)} />
+                  <Textarea onChange={(e) => setDescription(e.target.value)} fontFamily="Raleway"/>
                 </InputGroup>
               </Box>
             </Box>
             <Box>
               <Center>
-                <Button onClick={sendEmail}>Submit</Button>
+                <Button onClick={sendEmail} fontFamily="Raleway">Submit</Button>
               </Center>
             </Box>
           </VStack>

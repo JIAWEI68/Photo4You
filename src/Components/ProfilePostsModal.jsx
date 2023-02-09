@@ -26,11 +26,12 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 const ProfilePostsModal = (post ) => {
-  const [image, setImage] = useState("a");
+  const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Nature");
   const id = post.props.id;
+  
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -39,12 +40,12 @@ const ProfilePostsModal = (post ) => {
   };
 
 
-  const editPost = () => {
-    fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${id}`, {
+  const editPost = async () => {
+    await fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        auth: sessionStorage.getItem("auth"),
+        authorize: sessionStorage.getItem("token"),
       },
       body: JSON.stringify({
         title: title,
@@ -55,21 +56,27 @@ const ProfilePostsModal = (post ) => {
         type : type
       }),
     });
+    window.location.reload();
   };
 
-  const deletePost = () => {
-    fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${post.props.id}`, {
+  const deletePost = async () => {
+    await fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${post.props.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         authorize: sessionStorage.getItem("token"),
       },
     });
+    window.location.reload();
   };
 
 
   useEffect(() => {
     console.log(post);
+    setImage(post.props.image);
+    setTitle(post.props.title);
+    setDescription(post.props.postsDescription);
+    setType(post.props.type);
   }, []);
 
   return (
@@ -78,7 +85,7 @@ const ProfilePostsModal = (post ) => {
         <ModalBody>
           <HStack spacing="10">
             <Box borderWidth="1px" borderRadius="lg">
-              <Image src={post.props.image} w="500px" h="500px"/>
+              <Image src={image} w="500px" h="500px"/>
             </Box>
             <Box>
               <VStack>
@@ -88,24 +95,24 @@ const ProfilePostsModal = (post ) => {
                 <Box>
                   <InputGroup fontFamily="Raleway">
                     <InputLeftAddon children={"Image Link"} />
-                    <Input type="Text" value={post.props.image} onChange={(e) => setImage(e.target.value)} />
+                    <Input type="Text" value={image} onChange={(e) => setImage(e.target.value)} />
                   </InputGroup>
                 </Box>
                 <Box w="300px">
                   <InputGroup>
                     <InputLeftAddon children={"Title"} />
-                    <Input type="Text" onChange={handleTitle} value = {post.props.title} fontFamily = "Raleway"/>
+                    <Input type="Text" onChange={handleTitle} value = {title} fontFamily = "Raleway"/>
                   </InputGroup>
                 </Box>
                 <Box w="300px">
                   <Text mb="8px" fontFamily="Raleway">
                     Description:
                   </Text>
-                  <Textarea value = {post.props.postsDescription} onChange = {(e) => setDescription(e.target.value)} fontFamily = "Raleway"/>
+                  <Textarea value = {description} onChange = {(e) => setDescription(e.target.value)} fontFamily = "Raleway"/>
                 </Box>
                 <Box>
                   <Select
-                    value={post.props.type}
+                    value={type}
                     onChange={(e) => setType(e.target.value)}
                     w="300px"
                   >

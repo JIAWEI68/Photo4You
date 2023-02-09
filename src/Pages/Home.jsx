@@ -105,7 +105,7 @@ function Home() {
         </Link>
       </Center>
       <SimpleGrid
-        spacing="0.5px"
+        spacing="10"
         my="10"
         mx = "24"
         columns={[1,4]}
@@ -117,7 +117,7 @@ function Home() {
                 <Image src={post.image} />
                 <Box p="6">
                   <Box display="flex" alignItems="stretch" overflow="hidden">
-                    <Box mt="1" font="Raleway">
+                    <Box mt="1" fontFamily="Raleway">
                       {post.title}
                     </Box>
                   </Box>

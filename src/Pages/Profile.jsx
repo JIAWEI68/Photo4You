@@ -101,15 +101,16 @@ const Profile = () => {
           <Center>
             <Box mt="10px">
               <Link to="/profileposts">
-                <Button>Posts</Button>
+                <Button fontFamily="Raleway">Posts</Button>
               </Link>
             </Box>
           </Center>
           <Box mt="20px">
             <FormControl>
-              <FormLabel>Profile Picture</FormLabel>
+              <FormLabel fontFamily="Raleway">Profile Picture</FormLabel>
               <Input
                 type="text"
+                fontFamily="Raleway"
                 placeholder="Profile Picture"
                 value={profilePicture}
                 onChange={handleProfilePicture}
@@ -118,9 +119,10 @@ const Profile = () => {
           </Box>
           <Box mt="10px">
             <FormControl isDisabled = 'true'>
-              <FormLabel>Username</FormLabel>
+              <FormLabel fontFamily="Raleway">Username</FormLabel>
               <Input
                 type="text"
+                fontFamily="Raleway"
                 placeholder="Username"
                 value={username}
                 onChange={handleUsername}
@@ -129,9 +131,10 @@ const Profile = () => {
           </Box>
           <Box mt="10px">
             <FormControl isDisabled = 'true'>
-              <FormLabel>Email</FormLabel>
+              <FormLabel fontFamily="Raleway">Email</FormLabel>
               <Input
                 type="text"
+                fontFamily="Raleway"
                 placeholder="Email"
                 value={email}
                 onChange={handleEmail}
@@ -140,9 +143,10 @@ const Profile = () => {
           </Box>
           <Box mt="10px">
             <FormControl isDisabled = 'true'>
-              <FormLabel>Password</FormLabel>
+              <FormLabel fontFamily="Raleway">Password</FormLabel>
               <Input
                 type="password"
+                fontFamily="Raleway"
                 placeholder="password"
                 value={password}
                 onChange={handlePassword}
@@ -151,7 +155,7 @@ const Profile = () => {
           </Box>
           <Center>
             <Box mt="10px">
-              <Button onClick={updateProfile}>Update</Button>
+              <Button onClick={updateProfile} fontFamily="Raleway">Update</Button>
             </Box>
           </Center>
         </Box>

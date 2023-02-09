@@ -1,15 +1,31 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDisclosure, Box, IconButton, SimpleGrid, Modal, Button, Image} from "@chakra-ui/react";
-import {AddIcon} from "@chakra-ui/icons";
+import {
+  useDisclosure,
+  Box,
+  IconButton,
+  SimpleGrid,
+  Modal,
+  Button,
+  Image,
+} from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import ProfilePostsModal from "../Components/ProfilePostsModal";
 import AddPostModal from "../Components/AddPostModal";
 
 const ProfilePosts = () => {
   const [userId, setUserId] = useState("");
   const [postsList, setPosts] = useState([]);
-  const { isOpen: isOpenAddPost, onOpen: onOpenAddPost, onClose: onCloseAddPost } = useDisclosure();
-  const {isOpen: isOpenPosts , onOpen: onOpenPosts, onClose: onClosePosts} = useDisclosure();
+  const {
+    isOpen: isOpenAddPost,
+    onOpen: onOpenAddPost,
+    onClose: onCloseAddPost,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenPosts,
+    onOpen: onOpenPosts,
+    onClose: onClosePosts,
+  } = useDisclosure();
   const [currentPost, setCurrentPost] = useState();
   const id = sessionStorage.getItem("userId");
   function openModal(post) {
@@ -42,31 +58,32 @@ const ProfilePosts = () => {
   return (
     <div className="container">
       <Box textAlign={"right"}>
-        <IconButton icon = {<AddIcon/>} onClick = {onOpenAddPost}/>
+        <IconButton icon={<AddIcon />} onClick={onOpenAddPost} />
       </Box>
-      <SimpleGrid minChildWidth="120px" spacing="40px" mt="10" ml="24">
-        {postsList.length > 0 && postsList.map((post) => (
-          <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
-            <Image src={post.image} />
-            <Box p="6">
-              <Box display="flex" alignItems="stretch" overflow="hidden">
-                <Box mt="1" font="Raleway">
-                  {post.title}
+      <SimpleGrid spacing="10" my="10" mx="24" columns={[1, 4]}>
+        {postsList.length > 0 &&
+          postsList.map((post) => (
+            <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
+              <Image src={post.image} />
+              <Box p="6">
+                <Box display="flex" alignItems="stretch" overflow="hidden">
+                  <Box mt="1" fontFamily="Raleway">
+                    {post.title}
+                  </Box>
                 </Box>
               </Box>
+              <Box p="6">
+                <Button onClick={() => openModal(post)}>Details</Button>
+              </Box>
             </Box>
-            <Box p="6">
-              <Button onClick={() => openModal(post)}>Details</Button>
-            </Box>
-          </Box>
-        ))}
+          ))}
       </SimpleGrid>
 
-      <Modal onClose={onClosePosts} isOpen={isOpenPosts} isCentered size = "xl">
+      <Modal onClose={onClosePosts} isOpen={isOpenPosts} isCentered size="xl">
         <ProfilePostsModal props={currentPost} />
       </Modal>
-      <Modal onClose={onCloseAddPost} isOpen = {isOpenAddPost} size = "xl">
-        <AddPostModal/>
+      <Modal onClose={onCloseAddPost} isOpen={isOpenAddPost} size="xl">
+        <AddPostModal />
       </Modal>
     </div>
   );

@@ -18,14 +18,11 @@ import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import Saves from "./Pages/Saves";
 import Posts from "./Pages/Post";
-import CreatePost from "./Pages/CreatePost";
-import EditPost from "./Pages/EditPost";
 import NotFound from "./Pages/NotFound";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useEffect } from "react";
 import ProfilePosts from "./Pages/ProfilePosts";
 
-  
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -39,8 +36,6 @@ const router = createBrowserRouter(
         <Route path="/posts/:id" element={<Posts />} />
         <Route path="/saves" element={<Saves />} />
         <Route path="/saves/:id" element={<Saves />} />
-        <Route path="/post" element={<CreatePost />} />
-        <Route path="/edit/:id" element={<EditPost />} />
         <Route path="/profileposts" element={<ProfilePosts />} />
         <Route path="*" element={<NotFound />} />
       </Route>
