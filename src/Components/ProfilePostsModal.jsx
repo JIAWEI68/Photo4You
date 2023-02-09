@@ -110,23 +110,26 @@ const ProfilePostsModal = (post) => {
               <Image src={image} w="500px" h="500px" />
             </Box>
             <Box>
-              <VStack>
-                <Box textAlign="left">
+            <Box textAlign="right" mb = "100" >
                   <IconButton icon={<DeleteIcon />} onClick={deletePost} />
                 </Box>
+              <VStack>
                 <Box>
+                  <Text mb="8px" fontFamily="Raleway">
+                    Image:
+                  </Text>
                   <input type="file" onChange={handleImageFile} />
                 </Box>
                 <Box w="300px">
-                  <InputGroup>
-                    <InputLeftAddon children={"Title"} />
-                    <Input
-                      type="Text"
-                      onChange={handleTitle}
-                      value={title}
-                      fontFamily="Raleway"
-                    />
-                  </InputGroup>
+                  <Text mb="8px" fontFamily="Raleway">
+                    Title:
+                  </Text>
+                  <Input
+                    type="Text"
+                    onChange={handleTitle}
+                    value={title}
+                    fontFamily="Raleway"
+                  />
                 </Box>
                 <Box w="300px">
                   <Text mb="8px" fontFamily="Raleway">
@@ -139,6 +142,10 @@ const ProfilePostsModal = (post) => {
                   />
                 </Box>
                 <Box>
+                  <Text mb="8px" fontFamily="Raleway">
+                    Type:
+                  </Text>
+                  
                   <Select
                     value={type}
                     fontFamily="Raleway"
@@ -164,7 +171,13 @@ const ProfilePostsModal = (post) => {
                 </Box>
                 <Box></Box>
                 <Box>
-                  <Button onClick={editPost}>Post</Button>
+                  <Button
+                    onClick={editPost}
+                    fontFamily="Raleway"
+                    bgColor={"#00C65A"}
+                  >
+                    Update
+                  </Button>
                 </Box>
               </VStack>
             </Box>
