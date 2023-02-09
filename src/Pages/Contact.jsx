@@ -16,7 +16,6 @@ import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [firstName, setFirstName] = useState("");
-  const contactForm = useRef();
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
@@ -24,9 +23,10 @@ const Contact = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     const templateParams = {
-      to_name: `Mr/Ms ${firstName} ${lastName}`,
+      firstName: firstName,
+      lastName: lastName,
       from_name: "Photo4You",
-      message: `Hello, we have recieved your feed back for the issue ${description} and we will get back to you as soon as possible. Thank you for your patience. `,
+      message: description,
       email: email,
       reply_to: "ang.jiawei56@gmail.com",
     };
