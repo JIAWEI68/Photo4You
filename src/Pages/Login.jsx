@@ -54,7 +54,6 @@ function Login() {
 
   let isError = false;
   let isErrorP = false;
-  //const authenticate = useContext(AccountContext);
 
   //post data into api gateway
   const login = (e) => {
@@ -90,12 +89,12 @@ function Login() {
               password: password,
             }),
           }
-        )
+        );
         const apiData = await response.json();
         console.log(apiData);
-        for(const user of apiData){
+        for (const user of apiData) {
           sessionStorage.setItem("userId", user.id);
-          sessionStorage.setItem("username", user.username);  
+          sessionStorage.setItem("username", user.username);
           sessionStorage.setItem("profilePicture", user.profilePicture);
         }
         sessionStorage.setItem("token", "auth");
@@ -125,7 +124,9 @@ function Login() {
           <Center>
             <Box borderWidth="2px" borderColor="black" h="380px">
               <Center>
-                <Heading mt="10px" fontFamily="Raleway">Login</Heading>
+                <Heading mt="10px" fontFamily="Raleway">
+                  Login
+                </Heading>
               </Center>
               <FormControl isInvalid={isError}>
                 <Box p="5" mt="10px">
@@ -138,7 +139,7 @@ function Login() {
                       size="lg"
                       value={username}
                       onChange={handleUsername}
-                      fontFamily = "Raleway"
+                      fontFamily="Raleway"
                     />
                   </InputGroup>
                   {isError ? (
@@ -159,7 +160,7 @@ function Login() {
                       value={password}
                       onChange={handlePassword}
                       size="lg"
-                      fontFamily = "Raleway"
+                      fontFamily="Raleway"
                       type={show ? "text" : "password"}
                     />
                     <InputRightElement width="4.5rem">
@@ -179,7 +180,13 @@ function Login() {
                 </Box>
               </FormControl>
               <Center>
-                <Button p="5" h="10px" onClick={login} fontFamily="Raleway" background={"#00C65A"}>
+                <Button
+                  p="5"
+                  h="10px"
+                  onClick={login}
+                  fontFamily="Raleway"
+                  background={"#00C65A"}
+                >
                   Login
                 </Button>
               </Center>

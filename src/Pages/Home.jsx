@@ -98,7 +98,7 @@ function Home() {
             borderRadius="10"
             backgroundColor="#00C65A"
           >
-            <Center style={{ textDecoration: "none", fontFamily: "Raleway" }}>
+            <Center style={{ textDecoration: "none", fontFamily: "Raleway" }} my = "1">
               Saved
             </Center>
           </Box>
@@ -123,7 +123,7 @@ function Home() {
                   </Box>
                 </Box>
                 <Box p="6">
-                  <Button onClick={() => openModal(post)}>Details</Button>
+                  <Button onClick={() => openModal(post)} fontFamily = "Raleway" bgColor={"#00C65A"} textDecoration = "none">Details</Button>
                 </Box>
               </Box>
             ))

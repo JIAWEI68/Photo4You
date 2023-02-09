@@ -198,9 +198,9 @@ const PostsModal = (post) => {
                 </Box>
                 <Box>
                   {checkSave ? (
-                    <Button onClick={deleteSaves}>{saveText}</Button>
+                    <Button onClick={deleteSaves} bgColor = {"#00C65A"} fontFamily = "Raleway">{saveText}</Button>
                   ) : (
-                    <Button onClick={addToSaves}>{saveText}</Button>
+                    <Button onClick={addToSaves} bgColor = {"#00C65A"} fontFamily = "Raleway">{saveText}</Button>
                   )}
                 </Box>
               </VStack>

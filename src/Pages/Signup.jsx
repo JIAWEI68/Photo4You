@@ -45,18 +45,6 @@ function Signup() {
 
   const handleClick = () => setShow(!show);
   const handleCClick = () => setCShow(!confirmShow);
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
-  };
 
   const closeModal = () => {
     onClose();
@@ -228,7 +216,9 @@ function Signup() {
               width="350px"
             >
               <Center>
-                <Heading mt="15px">Sign Up</Heading>
+                <Heading mt="15px" fontFamily={"Raleway"}>
+                  Sign Up
+                </Heading>
               </Center>
               <Box p="2" ml="15px" mr="15px" mt="12px">
                 <InputGroup>
@@ -335,7 +325,12 @@ function Signup() {
                 </Box>
               </Center>
               <Center>
-                <Button p="5" onClick={signUp} fontFamily="Raleway">
+                <Button
+                  p="5"
+                  onClick={signUp}
+                  fontFamily="Raleway"
+                  bgColor={"#00C65A"}
+                >
                   Sign Up
                 </Button>
               </Center>
@@ -354,7 +349,9 @@ function Signup() {
                   An email has been sent to {email} with a confirmation code.
                 </Text>
                 <br />
-                <Text fontSize={15} fontFamily = "Raleway">Please enter the code below:</Text>
+                <Text fontSize={15} fontFamily="Raleway">
+                  Please enter the code below:
+                </Text>
                 <Input
                   type="number"
                   value={code}
@@ -364,7 +361,12 @@ function Signup() {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button variant="ghost" mr={3} onClick={closeModal} fontFamily = "Raleway">
+                <Button
+                  variant="ghost"
+                  mr={3}
+                  onClick={closeModal}
+                  fontFamily="Raleway"
+                >
                   Close
                 </Button>
                 <Button

@@ -22,14 +22,10 @@ import {
 } from "@chakra-ui/react";
 
 const AddPostModal = () => {
-  const [imageFile, setImageFile] = useState("");
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Nature");
-  // const handleImage = (e) => {
-  //   setImage(e.target.value);
-  // };
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
