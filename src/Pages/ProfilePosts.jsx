@@ -64,8 +64,8 @@ const ProfilePosts = () => {
         <IconButton icon={<AddIcon />} onClick={onOpenAddPost} bgColor = "#00C65A" />
       </Box>
       <SimpleGrid spacing="10" my="10" mx="24" columns={[1, 4]}>
-        {searchPost.length > 0 &&
-          searchPost.map((post) => (
+        {postsList.length > 0 &&
+          postsList.map((post) => (
             <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
               <Center><Image src={post.image} h = "300px"/></Center>
               <Box p="6">

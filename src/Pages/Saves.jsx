@@ -17,6 +17,7 @@ import {
   InputRightElement,
   Input,
   InputLeftAddon,
+  Text
 } from "@chakra-ui/react"; 
 import SavesModal from "../Components/SavesModal";
 import { useEffect } from "react";
@@ -55,8 +56,8 @@ const Saves = () => {
   
 if(id === null){
   return (
-    <div>
-      <h1>You must be logged in to view your saves.</h1>
+    <div >
+      <Center my = "500"><Text fontFamily = "Raleway" fontSize={50}>You must be logged in to view your saves.</Text></Center>
     </div>
   );
 }
@@ -97,7 +98,7 @@ if(id === null){
               </Center>
               <Box p="6">
                 <Box display="flex" alignItems="stretch" overflow="hidden">
-                  <Box mt="1" font="Raleway">
+                  <Box mt="1" fontFamily="Raleway">
                     {save.title}
                   </Box>
                 </Box>

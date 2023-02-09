@@ -61,7 +61,7 @@ const Navbar = () => {
       height="53px"
     >
       <Flex minWidth="max-content" alignItems="center" gap="2" color="grey">
-        <Box p="2">
+        <Box p="3">
           <Heading size="md" ml="24">
             <Link
               to="/"

@@ -116,7 +116,7 @@ function Signup() {
                     password: password,
                     email: email,
                     profilePicture:
-                      "https://image.pngaaa.com/784/4877784-middle.png",
+                      "https://cdn-icons-png.flaticon.com/512/6522/6522516.png",
                   }),
                 }
               );
@@ -350,27 +350,29 @@ function Signup() {
               <ModalHeader fontFamily="Raleway">Account Created!</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <Text>
+                <Text fontFamily={"Raleway"}>
                   An email has been sent to {email} with a confirmation code.
                 </Text>
                 <br />
-                <Text mb={2}>Please enter the code below:</Text>
+                <Text fontSize={15} fontFamily = "Raleway">Please enter the code below:</Text>
                 <Input
                   type="number"
                   value={code}
                   required
+                  fontFamily={"Raleway"}
                   onChange={(e) => setCode(e.target.value)}
                 />
               </ModalBody>
               <ModalFooter>
-                <Button variant="ghost" mr={3} onClick={closeModal}>
+                <Button variant="ghost" mr={3} onClick={closeModal} fontFamily = "Raleway">
                   Close
                 </Button>
                 <Button
                   type="submit"
                   variant="solid"
-                  bgColor={"#F9A826"}
+                  bgColor={"#00C65A"}
                   onClick={onConfirmation}
+                  fontFamily="Raleway"
                 >
                   Submit
                 </Button>

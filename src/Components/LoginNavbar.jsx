@@ -73,16 +73,16 @@ function loginNavbar() {
               <Avatar src={profilePicture} />
             </MenuButton>
             <MenuList>
-              <MenuGroup title="Profile">
+              <MenuGroup title="Profile" fontFamily = "Raleway">
                 <Link to="/profile">
-                  <MenuItem>Account</MenuItem>
+                  <MenuItem fontFamily = "Raleway">Account</MenuItem>
                 </Link>
-                <MenuItem onClick={signOut}>Sign Out</MenuItem>
+                <MenuItem onClick={signOut} fontFamily = "Raleway">Sign Out</MenuItem>
               </MenuGroup>
               <MenuDivider />
-              <MenuGroup title="Help">
+              <MenuGroup title="Help" fontFamily = "Raleway">
                 <Link to="/contact">
-                  <MenuItem>Contact</MenuItem>
+                  <MenuItem fontFamily = "Raleway">Contact</MenuItem>
                 </Link>
               </MenuGroup>
             </MenuList>

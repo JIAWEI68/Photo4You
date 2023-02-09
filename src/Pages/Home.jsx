@@ -92,8 +92,8 @@ function Home() {
         <Link to="/saves">
           <Box
             borderWidth="2px"
-            width="100px"
-            height="30px"
+            width="130px"
+            height="35px"
             mt="5"
             borderRadius="10"
             backgroundColor="#00C65A"

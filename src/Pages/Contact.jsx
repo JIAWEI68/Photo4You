@@ -149,7 +149,7 @@ const Contact = () => {
             </Box>
             <Box>
               <Center>
-                <Button onClick={sendEmail} fontFamily="Raleway">Submit</Button>
+                <Button onClick={sendEmail} fontFamily="Raleway" bgColor={"#00C65A"}>Submit</Button>
               </Center>
             </Box>
           </VStack>

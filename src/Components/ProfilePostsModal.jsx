@@ -113,14 +113,15 @@ const ProfilePostsModal = (post ) => {
                 <Box>
                   <Select
                     value={type}
+                    fontFamily = "Raleway"
                     onChange={(e) => setType(e.target.value)}
                     w="300px"
                   >
-                    <option value="nature">Nature</option>
-                    <option value="wallpaper">Wallpaper</option>
-                    <option value="locations">Locations</option>
-                    <option value="potraits">Potraits</option>
-                    <option value="animals">Animals</option>
+                    <option value="nature" fontFamily = "Raleway">Nature</option>
+                    <option value="wallpaper" fontFamily = "Raleway">Wallpaper</option>
+                    <option value="locations" fontFamily = "Raleway">Locations</option>
+                    <option value="potraits" fontFamily = "Raleway">Potraits</option>
+                    <option value="animals" fontFamily="Raleway">Animals</option>
                   </Select>
                 </Box>
                 <Box></Box>

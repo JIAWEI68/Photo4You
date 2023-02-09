@@ -99,10 +99,7 @@ function Login() {
           sessionStorage.setItem("profilePicture", user.profilePicture);
         }
         sessionStorage.setItem("token", "auth");
-        // setUsers(apiData);
-        // sessionStorage.setItem("users", apiData.data.body);
         console.log(users);
-        // console.log(userData);
         window.location.href = "/";
       },
       onFailure: (err) => {
@@ -120,15 +117,6 @@ function Login() {
         user.completeNewPasswordChallenge(password, userAttributes, this);
       },
     });
-
-    // const users = sessionStorage.setItem("users", users[0]);
-    // const checkId = sessionStorage.getItem("userId");
-    // if (checkId != null) {
-    //   const navigate = useNavigate();
-    //   navigate("/home");
-    // } else {
-    //   setShowAlert(true);
-    // }
   };
   return (
     <Container centerContent mt="40" mb="40">
@@ -215,16 +203,6 @@ function Login() {
           </Center>
         </Box>
       </Box>
-      {/* {showAlert ? (
-        <Alert>
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                Password/ Email is not correct
-              </AlertDialogHeader>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </Alert>) : null} */}
     </Container>
   );
 }
