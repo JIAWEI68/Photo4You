@@ -24,6 +24,16 @@ const PostsModal = (post) => {
   const toast = useToast();
   const [saveText, setSaveText] = useState("Save");
   const userId = sessionStorage.getItem("userId");
+  const saveCheck = () => {
+    if (saves.filter((save) => save.postId === post.props.id).length > 0) {
+      setCheckSave(true);
+    } else {
+      setCheckSave(false);
+    }
+  };
+  useEffect(() => {
+    saveCheck();
+  }, [saves]);
   const fetchData = async () => {
     const response = await fetch(
       `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/saves/user/${userId}`
@@ -55,7 +65,6 @@ const PostsModal = (post) => {
           duration: 9000,
           isClosable: true,
         });
-        setSaveText("Saved");
       } else {
         try {
           fetch(
@@ -78,6 +87,7 @@ const PostsModal = (post) => {
               }),
             }
           );
+          setCheckSave(true);
         } catch (err) {
           console.log(err);
         }
@@ -90,6 +100,50 @@ const PostsModal = (post) => {
       }
     }
   };
+  const deleteSaves = () => {
+    if (userId == null) {
+      toast({
+        title: "You must be logged in to save a post.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    } else {
+      if (saves.filter((save) => save.postId === post.props.id).length > 0) {
+        try {
+          fetch(
+            `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/saves/${
+              saves.filter((save) => save.postId === post.props.id)[0].id
+            }`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                authorize: sessionStorage.getItem("token"),
+                "Allow-Control-Allow-Origin": "*",
+              },
+            }
+          );
+        } catch (err) {
+          console.log(err);
+        }
+        toast({
+          title: "Post unsaved.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Post not saved.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
   return (
     <ModalOverlay>
       <ModalContent>
@@ -129,7 +183,11 @@ const PostsModal = (post) => {
                   </p>
                 </Box>
                 <Box>
-                  <Button onClick={addToSaves}>{saveText}</Button>
+                  {checkSave ? (
+                    <Button onClick={deleteSaves}>Saved</Button>
+                  ) : (
+                    <Button onClick={addToSaves}>Save</Button>
+                  )}
                 </Box>
               </VStack>
             </Box>

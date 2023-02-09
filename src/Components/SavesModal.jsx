@@ -9,21 +9,29 @@ import {
   ModalCloseButton,
   Box,
   useDisclosure,
+  HStack,
+  VStack,
+  Button,
+  useToast,
+  Image,
 } from "@chakra-ui/react";
 
+
 const SavesModal = (save) => {
-  const removeSave = () => {
-    fetch(`http://localhost:3000/saves/${save.props.id}`, {
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const removeSave = async () => {
+    await fetch(`https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/saves/${save.props.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         authorize: sessionStorage.getItem("token"),
       },
     });
+    window.location.reload();
   };
 
   useEffect(() => {
-    console.log(data.props);
+    console.log(save.props);
   }, [save]);
   return (
 <ModalOverlay>
