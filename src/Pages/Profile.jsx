@@ -117,7 +117,7 @@ const Profile = () => {
             </FormControl>
           </Box>
           <Box mt="10px">
-            <FormControl>
+            <FormControl isDisabled = 'true'>
               <FormLabel>Username</FormLabel>
               <Input
                 type="text"
@@ -128,7 +128,7 @@ const Profile = () => {
             </FormControl>
           </Box>
           <Box mt="10px">
-            <FormControl>
+            <FormControl isDisabled = 'true'>
               <FormLabel>Email</FormLabel>
               <Input
                 type="text"
@@ -139,7 +139,7 @@ const Profile = () => {
             </FormControl>
           </Box>
           <Box mt="10px">
-            <FormControl>
+            <FormControl isDisabled = 'true'>
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"

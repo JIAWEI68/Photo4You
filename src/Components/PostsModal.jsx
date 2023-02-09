@@ -24,7 +24,7 @@ const PostsModal = (post) => {
   const toast = useToast();
   const [saveText, setSaveText] = useState("Save");
   const userId = sessionStorage.getItem("userId");
-  const saveCount = 0;
+  const [saveCount, setSaveCount] = useState(0);
   const saveCheck = () => {
     if (saves.filter((save) => save.postId === post.props.id).length > 0) {
       setCheckSave(true);
@@ -60,7 +60,16 @@ const PostsModal = (post) => {
         isClosable: true,
       });
     } else {
-      if (saves.filter((save) => save.postId === post.props.id).length > 0) {
+      if(saveCount > 0){
+        toast({
+          title: "Post has been saved.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+
+      }
+      else if (saves.filter((save) => save.postId === post.props.id).length > 0) {
         toast({
           title: "Post already saved.",
           status: "error",
@@ -89,6 +98,7 @@ const PostsModal = (post) => {
               }),
             }
           );
+          setSaveCount(saveCount + 1);
           setCheckSave(true);
           setSaveText("Unsave");
         } catch (err) {

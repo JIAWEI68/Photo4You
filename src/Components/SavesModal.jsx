@@ -43,7 +43,7 @@ const SavesModal = (save) => {
             </Box>
             <Box>
               <VStack w="50px">
-                <Box w="50px">
+                <Box w="100px">
                   <h1
                     style={{
                       fontFamily: "Raleway",
@@ -53,7 +53,7 @@ const SavesModal = (save) => {
                     {save.props.title}
                   </h1>
                 </Box>
-                <Box ml="50px">
+                <Box ml="50px" w= "100px">
                   <p
                     style={{
                       fontFamily: "Raleway",
@@ -62,7 +62,7 @@ const SavesModal = (save) => {
                     Taken By: {save.props.username}
                   </p>
                 </Box>
-                <Box>
+                <Box w = "100px">
                   <p
                     style={{
                       fontFamily: "Raleway",

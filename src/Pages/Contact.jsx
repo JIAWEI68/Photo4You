@@ -9,9 +9,10 @@ import {
   useToast,
   Button,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [firstName, setFirstName] = useState("");
@@ -35,20 +36,20 @@ const Contact = () => {
       });
     } else {
       try {
-        emailjs.send("service_5qq5fyw", "template_y63zpgv", {
+        emailjs.sendForm("service_5qq5fyw", "template_y63zpgv", {
           to_name: `Mr/Ms ${firstName} ${lastName}`,
           from_name: "Photo4You",
           message: `Hello, we have recieved your feed back for the issue ${description} and we will get back to you as soon as possible. Thank you for your patience. `,
           email: email,
           reply_to: "ang.jiawei56@gmail.com",
-        });
-        emailjs.send("service_5qq5fyw", "template_quisxhl", {
+        }, "l7CUySFkN1Z7OEdrY");
+        emailjs.sendForm("service_5qq5fyw", "template_quisxhl", {
           to_name: `jw`,
           from_name: "Photo4You",
           message: description,
           email: email,
           reply_to: "",
-        });
+        }, "l7CUySFkN1Z7OEdrY");
         fetch(
           "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/contact",
           {
@@ -85,54 +86,57 @@ const Contact = () => {
   };
 
   return (
-    <div>
-      <HStack>
-        <Box>
-          <Center>
+    <div className="form">
+      <Center my="40">
+        <HStack spacing={10}>
+          <Box mx="40">
             <Box>
-              <Text>
+              <Text fontSize={30} color={"#00C65A"}>
                 <h1>Require Assistance?</h1>
               </Text>
               <Text>
                 <h2>Contact us by filling in this form with your inquiries!</h2>
               </Text>
             </Box>
-          </Center>
-        </Box>
-      </HStack>
-      <Box>
-          <Center>
+          </Box>
+          <VStack>
             <Box>
-              <InputGroup>
-                <InputLeftAddon children="First Name" />
-                <Input onChange={(e) => setFirstName(e.target.value)} />
-              </InputGroup>
+              <HStack>
+                {" "}
+                <Box>
+                  <Text>First Name</Text>
+                  <InputGroup>
+                    <Input onChange={(e) => setFirstName(e.target.value)} />
+                  </InputGroup>
+                </Box>
+                <Box>
+                  <Text>Last Name</Text>
+                  <InputGroup>
+                    <Input onChange={(e) => setLastName(e.target.value)} />
+                  </InputGroup>
+                </Box>
+              </HStack>
+              <Box my="4">
+                <Text>Email</Text>
+                <InputGroup>
+                  <Input onChange={(e) => setEmail(e.target.value)} />
+                </InputGroup>
+              </Box>
+              <Box>
+                <Text>Description</Text>
+                <InputGroup>
+                  <Textarea onChange={(e) => setDescription(e.target.value)} />
+                </InputGroup>
+              </Box>
             </Box>
             <Box>
-              <InputGroup>
-                <InputLeftAddon children="Last Name" />
-                <Input onChange={(e) => setLastName(e.target.value)} />
-              </InputGroup>
-            </Box>
-            <Box>
-              <InputGroup>
-                <InputLeftAddon children="Email" />
-                <Input onChange={(e) => setEmail(e.target.value)} />
-              </InputGroup>
-            </Box>
-            <Box>
-              <InputGroup>
-                <InputLeftAddon children="Description" />
-                <Textarea onChange={(e) => setDescription(e.target.value)} />
-              </InputGroup>
-            </Box>
-          </Center>
-        </Box>
-        <Box>
               <Center>
                 <Button onClick={sendEmail}>Submit</Button>
               </Center>
             </Box>
+          </VStack>
+        </HStack>
+      </Center>
     </div>
   );
 };

@@ -81,7 +81,6 @@ function loginNavbar() {
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title="Help">
-                <MenuItem>About</MenuItem>
                 <Link to="/contact">
                   <MenuItem>Contact</MenuItem>
                 </Link>
