@@ -105,7 +105,7 @@ function Home() {
         </Link>
       </Center>
       <SimpleGrid
-        spacing="10"
+        spacing="0.5px"
         my="10"
         mx = "24"
         columns={[1,4]}
@@ -127,7 +127,6 @@ function Home() {
                 </Box>
               </Box>
             ))
-          //.filter(s => s.title.toLowerCase() == searchValue.toLowerCase())
         }
       </SimpleGrid>
 

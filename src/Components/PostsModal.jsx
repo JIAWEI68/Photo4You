@@ -24,9 +24,11 @@ const PostsModal = (post) => {
   const toast = useToast();
   const [saveText, setSaveText] = useState("Save");
   const userId = sessionStorage.getItem("userId");
+  const saveCount = 0;
   const saveCheck = () => {
     if (saves.filter((save) => save.postId === post.props.id).length > 0) {
       setCheckSave(true);
+      setSaveText("Unsave");
     } else {
       setCheckSave(false);
     }
@@ -88,6 +90,7 @@ const PostsModal = (post) => {
             }
           );
           setCheckSave(true);
+          setSaveText("Unsave");
         } catch (err) {
           console.log(err);
         }
@@ -133,9 +136,10 @@ const PostsModal = (post) => {
           duration: 9000,
           isClosable: true,
         });
+        setSaveText("Save");
       } else {
         toast({
-          title: "Post not saved.",
+          title: "Post has been saved.",
           status: "error",
           duration: 9000,
           isClosable: true,
@@ -184,9 +188,9 @@ const PostsModal = (post) => {
                 </Box>
                 <Box>
                   {checkSave ? (
-                    <Button onClick={deleteSaves}>Saved</Button>
+                    <Button onClick={deleteSaves}>{saveText}</Button>
                   ) : (
-                    <Button onClick={addToSaves}>Save</Button>
+                    <Button onClick={addToSaves}>{saveText}</Button>
                   )}
                 </Box>
               </VStack>
