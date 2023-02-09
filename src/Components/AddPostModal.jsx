@@ -46,14 +46,11 @@ const AddPostModal = () => {
         image: file,
         imagePreviewUrl: reader.result,
       });
-    } else {
-      alert("Please upload a valid image");
     }
     reader.onloadend = () => {
       setImage(URL.createObjectURL(file));
-    }
+    };
     reader.readAsDataURL(file);
-    
   };
 
   const addPost = async () => {
@@ -92,10 +89,7 @@ const AddPostModal = () => {
             <Box>
               <VStack>
                 <Box>
-                  <InputGroup fontFamily="Raleway">
-                    <InputLeftAddon children={"Image Link"} />
-                    <Input type="file" onChange={handleImageFile} />
-                  </InputGroup>
+                  <input type="file" onChange={handleImageFile} />
                 </Box>
                 <Box w="300px">
                   <InputGroup>

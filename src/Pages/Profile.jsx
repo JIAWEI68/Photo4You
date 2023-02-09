@@ -10,7 +10,7 @@ import {
   Text,
   Button,
   VStack,
-  Avatar
+  Avatar,
 } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
@@ -38,6 +38,23 @@ const Profile = () => {
   };
   const handleProfilePicture = (e) => {
     setProfilePicture(e.target.value);
+  };
+  const handleImageFile = (e) => {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    const accept = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
+    if (accept.indexOf(file) > -1) {
+      this.setState({
+        image: file,
+        imagePreviewUrl: reader.result,
+      });
+    } else {
+      alert("Please upload a valid image");
+    }
+    reader.onloadend = () => {
+      setProfilePicture(URL.createObjectURL(file));
+    };
+    reader.readAsDataURL(file);
   };
   const updateProfile = async () => {
     await fetch(
@@ -95,32 +112,28 @@ const Profile = () => {
           h="782px"
           borderColor="#00C65A"
           alignItems="stretch"
-          my = "40"
+          my="40"
         >
           <Center>
-          <Avatar src={profilePicture} h = "250px" w = "250px" my = "10"/>
+            <Avatar src={profilePicture} h="250px" w="250px" my="10" />
+          </Center>
+          <Center>
+            <input
+              type="file"
+              fontFamily="Raleway"
+              placeholder="Profile Picture"
+              onChange={handleImageFile}
+            />
           </Center>
           <Center>
             <Box mt="10px">
               <Link to="/profileposts">
-                <Button fontFamily="Raleway">Posts</Button>
+                <Button fontFamily="Raleway" w = "400px" bgColor={"#00C65A"}>Posts</Button>
               </Link>
             </Box>
           </Center>
-          <Box mt="20px">
-            <FormControl>
-              <FormLabel fontFamily="Raleway">Profile Picture</FormLabel>
-              <Input
-                type="text"
-                fontFamily="Raleway"
-                placeholder="Profile Picture"
-                value={profilePicture}
-                onChange={handleProfilePicture}
-              />
-            </FormControl>
-          </Box>
           <Box mt="10px">
-            <FormControl isDisabled = 'true'>
+            <FormControl isDisabled="true">
               <FormLabel fontFamily="Raleway">Username</FormLabel>
               <Input
                 type="text"
@@ -132,7 +145,7 @@ const Profile = () => {
             </FormControl>
           </Box>
           <Box mt="10px">
-            <FormControl isDisabled = 'true'>
+            <FormControl isDisabled="true">
               <FormLabel fontFamily="Raleway">Email</FormLabel>
               <Input
                 type="text"
@@ -144,7 +157,7 @@ const Profile = () => {
             </FormControl>
           </Box>
           <Box mt="10px">
-            <FormControl isDisabled = 'true'>
+            <FormControl isDisabled="true">
               <FormLabel fontFamily="Raleway">Password</FormLabel>
               <Input
                 type="password"
@@ -157,7 +170,9 @@ const Profile = () => {
           </Box>
           <Center>
             <Box my="5">
-              <Button onClick={updateProfile} fontFamily="Raleway">Update</Button>
+              <Button onClick={updateProfile} fontFamily="Raleway" bgColor={"#00C65A"}>
+                Update
+              </Button>
             </Box>
           </Center>
         </Box>
