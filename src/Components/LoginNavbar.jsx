@@ -59,8 +59,7 @@ function loginNavbar() {
         </Box>
         <Spacer />
         <Center>
-          <Box p="1.5">
-          </Box>
+          <Box p="1.5"></Box>
         </Center>
         <Spacer />
         <Box h="30px" mt="1" mr="10" mb="3">
@@ -76,16 +75,16 @@ function loginNavbar() {
             <MenuList>
               <MenuGroup title="Profile">
                 <Link to="/profile">
-                <MenuItem>
-                 Account
-                </MenuItem>
+                  <MenuItem>Account</MenuItem>
                 </Link>
                 <MenuItem onClick={signOut}>Sign Out</MenuItem>
               </MenuGroup>
               <MenuDivider />
               <MenuGroup title="Help">
                 <MenuItem>About</MenuItem>
-                <MenuItem>Contact</MenuItem>
+                <Link to="/contact">
+                  <MenuItem>Contact</MenuItem>
+                </Link>
               </MenuGroup>
             </MenuList>
           </Menu>

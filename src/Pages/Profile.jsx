@@ -55,7 +55,8 @@ const Profile = () => {
         }),
       }
     );
-    sessionStorage.setItem("profile picture", profilePicture);
+    sessionStorage.setItem("profilePicture", profilePicture);
+    window.location.reload();
   };
   const getProfile = async () => {
     const response = await fetch(
@@ -92,9 +93,10 @@ const Profile = () => {
           h="782px"
           borderColor="#00C65A"
           alignItems="stretch"
+          my = "40"
         >
           <Center>
-            <Image src={profilePicture} fit={true} />
+            <Image src={profilePicture} h= "250px" />
           </Center>
           <Center>
             <Box mt="10px">

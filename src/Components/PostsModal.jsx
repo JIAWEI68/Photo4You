@@ -30,6 +30,7 @@ const PostsModal = (post) => {
     );
     const data = await response.json();
     setSaves(data);
+    console.log(saves);
   };
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const PostsModal = (post) => {
         isClosable: true,
       });
     } else {
-      if (saves.includes(post.props.title) && saves.includes(userId)) {
+      if (saves.filter((save) => save.postId === post.props.id).length > 0) {
         toast({
           title: "Post already saved.",
           status: "error",

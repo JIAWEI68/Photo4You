@@ -47,11 +47,13 @@ function Home() {
     fetchData();
   }, []);
   useEffect(() => {
-    setSearchedPosts(
-      [...postsList].filter((post) =>
-        post.title.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    );
+    if(postsList.length > 0){
+      setSearchedPosts(
+        [...postsList].filter((post) =>
+          post.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      );
+    }
   }, [postsList, searchValue]);
   function openModal(post) {
     onOpen();
