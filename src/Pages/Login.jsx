@@ -137,7 +137,7 @@ function Login() {
           <Center>
             <Box borderWidth="2px" borderColor="black" h="380px">
               <Center>
-                <Heading mt="10px">Login</Heading>
+                <Heading mt="10px" fontFamily="Raleway">Login</Heading>
               </Center>
               <FormControl isInvalid={isError}>
                 <Box p="5" mt="10px">
@@ -191,13 +191,13 @@ function Login() {
                 </Box>
               </FormControl>
               <Center>
-                <Button p="5" h="10px" onClick={login}>
+                <Button p="5" h="10px" onClick={login} fontFamily="Raleway" background={"#00C65A"}>
                   Login
                 </Button>
               </Center>
               <Center>
                 <Box p="1">
-                  <Text>
+                  <Text fontFamily="Raleway">
                     New to the website?{" "}
                     <Link
                       to="/signup"

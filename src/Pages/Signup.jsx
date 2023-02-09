@@ -238,6 +238,7 @@ function Signup() {
                   <Input
                     placeholder="Username"
                     size="lg"
+                    fontFamily="Raleway"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
@@ -252,6 +253,7 @@ function Signup() {
                   <Input
                     placeholder="Email"
                     size="lg"
+                    fontFamily="Raleway"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -266,6 +268,7 @@ function Signup() {
                   <Input
                     placeholder="Password"
                     size="lg"
+                    fontFamily="Raleway"
                     type={show ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -292,6 +295,7 @@ function Signup() {
                     placeholder="Confirm Password"
                     size="lg"
                     value={confirmPassword}
+                    fontFamily="Raleway"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     type={confirmShow ? "text" : "password"}
                   />
@@ -316,7 +320,7 @@ function Signup() {
               </Center>
               <Center>
                 <Box p="1">
-                  <Text>
+                  <Text fontFamily="Raleway">
                     Already have an account?{" "}
                     <Link
                       to="/login"
@@ -331,7 +335,7 @@ function Signup() {
                 </Box>
               </Center>
               <Center>
-                <Button p="5" onClick={signUp}>
+                <Button p="5" onClick={signUp} fontFamily="Raleway">
                   Sign Up
                 </Button>
               </Center>
@@ -343,7 +347,7 @@ function Signup() {
         <ModalOverlay>
           <FormControl>
             <ModalContent>
-              <ModalHeader>Account Created!</ModalHeader>
+              <ModalHeader fontFamily="Raleway">Account Created!</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <Text>
@@ -365,7 +369,7 @@ function Signup() {
                 <Button
                   type="submit"
                   variant="solid"
-                  colorScheme="blue"
+                  bgColor={"#F9A826"}
                   onClick={onConfirmation}
                 >
                   Submit

@@ -113,8 +113,8 @@ function Home() {
         {
           searchedPosts.length > 0 &&
             searchedPosts.map((post) => (
-              <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
-                <Image src={post.image} />
+              <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id} >
+                <Center><Image src={post.image}  h = "300px"/></Center>
                 <Box p="6">
                   <Box display="flex" alignItems="stretch" overflow="hidden">
                     <Box mt="1" fontFamily="Raleway">

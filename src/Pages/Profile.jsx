@@ -9,6 +9,8 @@ import {
   HStack,
   Text,
   Button,
+  VStack,
+  Avatar
 } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
@@ -96,7 +98,7 @@ const Profile = () => {
           my = "40"
         >
           <Center>
-            <Image src={profilePicture} h= "250px" />
+          <Avatar src={profilePicture} h = "250px" w = "250px" my = "10"/>
           </Center>
           <Center>
             <Box mt="10px">
@@ -154,7 +156,7 @@ const Profile = () => {
             </FormControl>
           </Box>
           <Center>
-            <Box mt="10px">
+            <Box my="5">
               <Button onClick={updateProfile} fontFamily="Raleway">Update</Button>
             </Box>
           </Center>
