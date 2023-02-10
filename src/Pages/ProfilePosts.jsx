@@ -76,7 +76,7 @@ const ProfilePosts = () => {
                 </Box>
               </Box>
               <Box p="6">
-                <Button onClick={() => openModal(post)}>Details</Button>
+                <Button onClick={() => openModal(post)} fontFamily = "Raleway" bgColor={"#00C65A"}>Details</Button>
               </Box>
             </Box>
           ))}

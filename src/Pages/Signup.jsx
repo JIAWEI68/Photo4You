@@ -365,7 +365,7 @@ function Signup() {
           </Center>
         </Box>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay>
           <FormControl>
             <ModalContent>

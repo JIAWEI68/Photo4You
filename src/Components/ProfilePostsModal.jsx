@@ -48,22 +48,6 @@ const ProfilePostsModal = (post) => {
     setDescription(e.target.value);
   };
 
-  const handleImageFile = (e) => {
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    const accept = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
-    if (accept.indexOf(file) > -1) {
-      this.setState({
-        image: file,
-        imagePreviewUrl: reader.result,
-      });
-    }
-    reader.onloadend = () => {
-      setImage(URL.createObjectURL(file));
-    };
-    reader.readAsDataURL(file);
-  };
-
   const editPost = async () => {
     await fetch(
       `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/posts/${id}`,
@@ -122,14 +106,14 @@ const ProfilePostsModal = (post) => {
             </Box>
             <Box>
               <Box textAlign="right" mb="100">
-                <IconButton icon={<DeleteIcon />} onClick={confirmationDelete} />
+                <IconButton icon={<DeleteIcon />} color = "white" bgColor = "#00C65A" onClick={confirmationDelete} />
               </Box>
               <VStack>
-                <Box>
+                <Box w = "300px">
                   <Text mb="8px" fontFamily="Raleway">
                     Image:
                   </Text>
-                  <input type="file" onChange={handleImageFile} />
+                  <Input type="Text" value = {image} onChange={(e) => setImage(e.target.value)} />
                 </Box>
                 <Box w="300px">
                   <Text mb="8px" fontFamily="Raleway">

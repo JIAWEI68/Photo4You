@@ -33,22 +33,6 @@ const AddPostModal = () => {
     setDescription(e.target.value);
   };
 
-  const handleImageFile = (e) => {
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    const accept = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
-    if (accept.indexOf(file) > -1) {
-      this.setState({
-        image: file,
-        imagePreviewUrl: reader.result,
-      });
-    }
-    reader.onloadend = () => {
-      setImage(URL.createObjectURL(file));
-    };
-    reader.readAsDataURL(file);
-  };
-
   const addPost = async () => {
     try {
       await fetch(
@@ -84,8 +68,11 @@ const AddPostModal = () => {
             </Box>
             <Box>
               <VStack>
-                <Box>
-                  <input type="file" onChange={handleImageFile} />
+                <Box w = "300px">
+                  <Text mb="8px" fontFamily="Raleway">
+                    Image Link:
+                  </Text>
+                  <Input value = {image} type="text" onChange={(e) => setImage(e.target.value)} />
                 </Box>
                 <Box w="300px">
                   <InputGroup>

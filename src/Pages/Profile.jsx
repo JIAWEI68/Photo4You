@@ -39,22 +39,6 @@ const Profile = () => {
   const handleProfilePicture = (e) => {
     setProfilePicture(e.target.value);
   };
-  const handleImageFile = (e) => {
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    const accept = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
-    if (accept.indexOf(file) > -1) {
-      this.setState({
-        image: file,
-        imagePreviewUrl: reader.result,
-      });
-      image.crossOrigin = "Anonymous";
-    } 
-    reader.onloadend = () => {
-      setProfilePicture(URL.createObjectURL(file));
-    };
-    reader.readAsDataURL(file);
-  };
   const updateProfile = async () => {
     await fetch(
       `https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/user/${id}`,
@@ -117,20 +101,18 @@ const Profile = () => {
             <Avatar src={profilePicture} h="250px" w="250px" my="10" />
           </Center>
           <Center>
-            <input
-              type="file"
-              fontFamily="Raleway"
-              placeholder="Profile Picture"
-              onChange={handleImageFile}
-            />
-          </Center>
-          <Center>
             <Box mt="10px">
               <Link to="/profileposts">
                 <Button fontFamily="Raleway" w = "400px" bgColor={"#00C65A"}>Posts</Button>
               </Link>
             </Box>
           </Center>
+          <Box mt = "5">
+          <Text fontFamily={"Raleway"}>Profile Picture</Text>
+          <Center>
+          <Input value = {profilePicture} type="text" onChange={(e) => setProfilePicture(e.target.value)} />
+          </Center>
+          </Box>
           <Box mt="10px">
             <FormControl isDisabled="true">
               <FormLabel fontFamily="Raleway">Username</FormLabel>
