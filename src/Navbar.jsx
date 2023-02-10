@@ -25,6 +25,7 @@ import {
   InputRightElement,
   color,
   Center,
+  Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -63,7 +64,7 @@ const Navbar = () => {
       top={0}
       zIndex={1}
     >
-      <Flex minWidth="max-content" alignItems="center" gap="2" color="grey" >
+      <Flex minWidth="max-content" alignItems="center" gap="2" color="grey">
         <Box p="3">
           <Heading size="md" ml="24">
             <Link
@@ -80,10 +81,14 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <Center>
-          <Box p="1.5">
-          </Box>
+          <Box p="1.5"></Box>
         </Center>
         <Spacer />
+        <Link to="/contact">
+          <Text fontFamily="Raleway" fontStyle={"bold"} color = "white" mx = "10">
+            Contact
+          </Text>
+        </Link>
         <Breadcrumb mr="100">
           <BreadcrumbItem>
             <BreadcrumbLink

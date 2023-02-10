@@ -108,6 +108,7 @@ const AddPostModal = () => {
                   />
                 </Box>
                 <Box>
+                  <Text fontFamily={"Raleway"}>Type:</Text>
                   <Select
                     value={type}
                     fontFamily="Raleway"

@@ -16,6 +16,7 @@ import {
   MenuDivider,
   Button,
   Avatar,
+  Text
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -45,7 +46,7 @@ function loginNavbar() {
       top={0}
       zIndex={1}
     >
-      <Flex minWidth="max-content" alignItems="center" gap="2" color="grey" >
+      <Flex minWidth="max-content" alignItems="center" gap="2" color="grey">
         <Box p="2">
           <Heading size="md" ml="24">
             <Link
@@ -65,6 +66,9 @@ function loginNavbar() {
           <Box p="1.5"></Box>
         </Center>
         <Spacer />
+        <Link to="/contact"> 
+            <Text fontFamily="Raleway" fontStyle={"bold"}  color = "white" mx = "10">Contact</Text>
+          </Link>
         <Box h="30px" mt="1" mr="10" mb="3">
           <Menu>
             <MenuButton
@@ -76,17 +80,13 @@ function loginNavbar() {
               <Avatar src={profilePicture} />
             </MenuButton>
             <MenuList>
-              <MenuGroup title="Profile" fontFamily = "Raleway">
+              <MenuGroup title="Profile" fontFamily="Raleway">
                 <Link to="/profile">
-                  <MenuItem fontFamily = "Raleway">Account</MenuItem>
+                  <MenuItem fontFamily="Raleway">Account</MenuItem>
                 </Link>
-                <MenuItem onClick={signOut} fontFamily = "Raleway">Sign Out</MenuItem>
-              </MenuGroup>
-              <MenuDivider />
-              <MenuGroup title="Help" fontFamily = "Raleway">
-                <Link to="/contact">
-                  <MenuItem fontFamily = "Raleway">Contact</MenuItem>
-                </Link>
+                <MenuItem onClick={signOut} fontFamily="Raleway">
+                  Sign Out
+                </MenuItem>
               </MenuGroup>
             </MenuList>
           </Menu>
