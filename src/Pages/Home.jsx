@@ -55,7 +55,7 @@ function Home() {
   return (
     <div className="container">
       <Center>
-        <Box my="10px" mx = "10">
+        <Box mt="20" mx = "10" mb = "-1">
           <InputGroup>
             <InputRightElement
               pointerEvents="none"
@@ -86,7 +86,7 @@ function Home() {
             borderWidth="2px"
             width="130px"
             height="35px"
-            mt="5"
+            my="5"
             borderRadius="10"
             backgroundColor="#00C65A"
           >

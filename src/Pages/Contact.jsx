@@ -20,8 +20,7 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
   const toast = useToast();
-  const sendEmail = (e) => {
-    e.preventDefault();
+  const sendEmail = async(e) => {
     const templateParams = {
       firstName: firstName,
       lastName: lastName,
@@ -52,19 +51,19 @@ const Contact = () => {
       });
     } else {
       try {
-        emailjs.send(
+        await emailjs.send(
           "service_5qq5fyw",
           "template_y63zpgv",
           templateParams,
           "l7CUySFkN1Z7OEdrY"
         );
-        emailjs.send(
+        await emailjs.send(
           "service_5qq5fyw",
           "template_quisxhl",
           templateParams2,
           "l7CUySFkN1Z7OEdrY"
         );
-        fetch(
+        await fetch(
           "https://fejpqh9rn7.execute-api.us-east-1.amazonaws.com/contact",
           {
             method: "POST",
@@ -86,6 +85,7 @@ const Contact = () => {
           duration: 5000,
           isClosable: true,
         });
+        window.location.reload();
       } catch (error) {
         console.log(error);
         toast({

@@ -72,7 +72,7 @@ const SavesModal = (save) => {
                   </p>
                 </Box>
                 <Box>
-                  <Button onClick = {removeSave}>Unsave</Button>
+                  <Button onClick = {removeSave} fontFamily = "Raleway" bgColor={"#00C65A"}>Unsave</Button>
                 </Box>
               </VStack>
             </Box>

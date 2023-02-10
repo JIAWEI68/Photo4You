@@ -104,7 +104,7 @@ if(id === null){
                 </Box>
               </Box>
               <Box p="6">
-                <Button onClick={() => openModal(save)}>Details</Button>
+                <Button onClick={() => openModal(save)} fontFamily = "Raleway" bgColor={"#00C65A"}>Details</Button>
               </Box>
             </Box>
           ))}

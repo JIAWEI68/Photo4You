@@ -42,6 +42,7 @@ function Signup() {
   const [code, setCode] = useState("");
   const toast = useToast();
   const toastId = "id";
+  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
   const handleClick = () => setShow(!show);
   const handleCClick = () => setCShow(!confirmShow);
@@ -77,6 +78,32 @@ function Signup() {
       }
       setPassword("");
       setConfirmPassword("");
+    } else if (password.length < 8) {
+      if (!toast.isActive(toastId)) {
+        toast({
+          toastId,
+          title: "Password must be at least 8 characters",
+          description: "Please try again",
+          status: "error",
+          duration: 5000,
+        });
+      } else if (!specialChars.test(password)) {
+        toast({
+          toastId,
+          title: "Password must contain at least one special character",
+          description: "Please try again",
+          status: "error",
+          duration: 5000,
+        });
+      } else if (!/^[A-Z]+$/.test(password)) {
+        toast({
+          toastId,
+          title: "Password must contain at least one uppercase letter",
+          description: "Please try again",
+          status: "error",
+          duration: 5000,
+        });
+      }
     } else {
       UserPool.signUp(
         username,

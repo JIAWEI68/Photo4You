@@ -48,9 +48,8 @@ const Profile = () => {
         image: file,
         imagePreviewUrl: reader.result,
       });
-    } else {
-      alert("Please upload a valid image");
-    }
+      image.crossOrigin = "Anonymous";
+    } 
     reader.onloadend = () => {
       setProfilePicture(URL.createObjectURL(file));
     };

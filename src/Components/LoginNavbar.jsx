@@ -41,8 +41,11 @@ function loginNavbar() {
       borderWidth="1"
       width="100%"
       height="53px"
+      position={"fixed"}
+      top={0}
+      zIndex={1}
     >
-      <Flex minWidth="max-content" alignItems="center" gap="2" color="grey">
+      <Flex minWidth="max-content" alignItems="center" gap="2" color="grey" >
         <Box p="2">
           <Heading size="md" ml="24">
             <Link

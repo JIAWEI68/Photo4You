@@ -104,7 +104,7 @@ function Login() {
       onFailure: (err) => {
         toast({
           title: "Login Failed",
-          description: "Please check your username and password",
+          description: "Username or password do not match, please try again",
           status: "error",
           duration: 9000,
           isClosable: true,

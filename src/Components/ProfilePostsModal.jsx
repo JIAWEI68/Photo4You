@@ -21,6 +21,13 @@ import {
   Select,
   Center,
   IconButton,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -30,7 +37,9 @@ const ProfilePostsModal = (post) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Nature");
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const id = post.props.id;
+  const cancelRef = React.useRef();
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -48,8 +57,6 @@ const ProfilePostsModal = (post) => {
         image: file,
         imagePreviewUrl: reader.result,
       });
-    } else {
-      alert("Please upload a valid image");
     }
     reader.onloadend = () => {
       setImage(URL.createObjectURL(file));
@@ -77,6 +84,10 @@ const ProfilePostsModal = (post) => {
       }
     );
     window.location.reload();
+  };
+
+  const confirmationDelete = () => {
+    onOpen();
   };
 
   const deletePost = async () => {
@@ -110,9 +121,9 @@ const ProfilePostsModal = (post) => {
               <Image src={image} w="500px" h="500px" />
             </Box>
             <Box>
-            <Box textAlign="right" mb = "100" >
-                  <IconButton icon={<DeleteIcon />} onClick={deletePost} />
-                </Box>
+              <Box textAlign="right" mb="100">
+                <IconButton icon={<DeleteIcon />} onClick={confirmationDelete} />
+              </Box>
               <VStack>
                 <Box>
                   <Text mb="8px" fontFamily="Raleway">
@@ -145,7 +156,7 @@ const ProfilePostsModal = (post) => {
                   <Text mb="8px" fontFamily="Raleway">
                     Type:
                   </Text>
-                  
+
                   <Select
                     value={type}
                     fontFamily="Raleway"
@@ -182,6 +193,31 @@ const ProfilePostsModal = (post) => {
               </VStack>
             </Box>
           </HStack>
+          <AlertDialog
+            motionPreset="slideInBottom"
+            leastDestructiveRef={cancelRef}
+            onClose={onClose}
+            isOpen={isOpen}
+            isCentered
+          >
+            <AlertDialogOverlay />
+
+            <AlertDialogContent>
+              <AlertDialogHeader fontFamily={"Raleway"}>Discard Changes?</AlertDialogHeader>
+              <AlertDialogCloseButton />
+              <AlertDialogBody fontFamily={"Raleway"}>
+                Are you sure you want to discard all of your changes?
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button ref={cancelRef} colorScheme = "red" onClick={onClose} fontFamily = {"Raleway"}>
+                  No
+                </Button>
+                <Button bgColor={"#00C65A"} ml={3} onClick = {deletePost} fontFamily = "Raleway">
+                  Yes
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </ModalBody>
       </ModalContent>
     </ModalOverlay>
