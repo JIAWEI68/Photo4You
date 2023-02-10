@@ -60,7 +60,7 @@ const ProfilePosts = () => {
   }, []);
   return (
     <div className="container">
-      <Box textAlign={"right"}>
+      <Box textAlign={"right"} my = "53">
         <IconButton icon={<AddIcon />} onClick={onOpenAddPost} bgColor = "#00C65A" />
       </Box>
       <SimpleGrid spacing="10" my="10" mx="24" columns={[1, 4]}>
