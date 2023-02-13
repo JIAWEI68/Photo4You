@@ -20,7 +20,7 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
   const toast = useToast();
-  const sendEmail = async(e) => {
+  const sendEmail = async (e) => {
     const templateParams = {
       firstName: firstName,
       lastName: lastName,
@@ -130,26 +130,41 @@ const Contact = () => {
                 <Box>
                   <Text fontFamily="Raleway">Last Name</Text>
                   <InputGroup>
-                    <Input onChange={(e) => setLastName(e.target.value)} fontFamily="Raleway" />
+                    <Input
+                      onChange={(e) => setLastName(e.target.value)}
+                      fontFamily="Raleway"
+                    />
                   </InputGroup>
                 </Box>
               </HStack>
               <Box my="4">
                 <Text fontFamily="Raleway">Email</Text>
                 <InputGroup>
-                  <Input onChange={(e) => setEmail(e.target.value)} fontFamily="Raleway"/>
+                  <Input
+                    onChange={(e) => setEmail(e.target.value)}
+                    fontFamily="Raleway"
+                  />
                 </InputGroup>
               </Box>
               <Box>
                 <Text fontFamily="Raleway">Description</Text>
                 <InputGroup>
-                  <Textarea onChange={(e) => setDescription(e.target.value)} fontFamily="Raleway"/>
+                  <Textarea
+                    onChange={(e) => setDescription(e.target.value)}
+                    fontFamily="Raleway"
+                  />
                 </InputGroup>
               </Box>
             </Box>
             <Box>
               <Center>
-                <Button onClick={sendEmail} fontFamily="Raleway" bgColor={"#00C65A"}>Submit</Button>
+                <Button
+                  onClick={sendEmail}
+                  fontFamily="Raleway"
+                  bgColor={"#00C65A"}
+                >
+                  Submit
+                </Button>
               </Center>
             </Box>
           </VStack>

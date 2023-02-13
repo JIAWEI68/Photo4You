@@ -39,7 +39,7 @@ function Home() {
     fetchData();
   }, []);
   useEffect(() => {
-    if(postsList.length > 0){
+    if (postsList.length > 0) {
       setSearchedPosts(
         [...postsList].filter((post) =>
           post.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -55,7 +55,7 @@ function Home() {
   return (
     <div className="container">
       <Center>
-        <Box mt="20" mx = "10" mb = "-1">
+        <Box mt="20" mx="10" mb="-1">
           <InputGroup>
             <InputRightElement
               pointerEvents="none"
@@ -90,36 +90,41 @@ function Home() {
             borderRadius="10"
             backgroundColor="#00C65A"
           >
-            <Center style={{ textDecoration: "none", fontFamily: "Raleway" }} my = "1">
+            <Center
+              style={{ textDecoration: "none", fontFamily: "Raleway" }}
+              my="1"
+            >
               Saved
             </Center>
           </Box>
         </Link>
       </Center>
-      <SimpleGrid
-        spacing="10"
-        my="10"
-        mx = "24"
-        columns={[1,4]}
-      >
-        {
-          searchedPosts.length > 0 &&
-            searchedPosts.map((post) => (
-              <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id} >
-                <Center><Image src={post.image}  h = "300px"/></Center>
-                <Box p="6">
-                  <Box display="flex" alignItems="stretch" overflow="hidden">
-                    <Box mt="1" fontFamily="Raleway">
-                      {post.title}
-                    </Box>
+      <SimpleGrid spacing="10" my="10" mx="24" columns={[1, 4]}>
+        {searchedPosts.length > 0 &&
+          searchedPosts.map((post) => (
+            <Box maxW="sm" borderWidth="1px" borderRadius="lg" key={post.id}>
+              <Center>
+                <Image src={post.image} h="300px" />
+              </Center>
+              <Box p="6">
+                <Box display="flex" alignItems="stretch" overflow="hidden">
+                  <Box mt="1" fontFamily="Raleway">
+                    {post.title}
                   </Box>
                 </Box>
-                <Box p="6">
-                  <Button onClick={() => openModal(post)} fontFamily = "Raleway" bgColor={"#00C65A"} textDecoration = "none">Details</Button>
-                </Box>
               </Box>
-            ))
-        }
+              <Box p="6">
+                <Button
+                  onClick={() => openModal(post)}
+                  fontFamily="Raleway"
+                  bgColor={"#00C65A"}
+                  textDecoration="none"
+                >
+                  Details
+                </Button>
+              </Box>
+            </Box>
+          ))}
       </SimpleGrid>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl">
