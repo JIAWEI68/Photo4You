@@ -135,7 +135,7 @@ function Login() {
                       <Icon as={MdPersonOutline} boxSize={6} />
                     </InputLeftElement>
                     <Input
-                      placeholder="Username or Email"
+                      placeholder="Username"
                       size="lg"
                       value={username}
                       onChange={handleUsername}
